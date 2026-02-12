@@ -15,45 +15,44 @@
             --bg: #1a0a0e;
         }
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior:smooth; }
         body {
-            background: var(--bg); color: #fff;
-            overflow: hidden;
-            font-size: 16px;
-            height: 100vh; height: 100dvh;
+            background:var(--bg); color:#fff;
+            overflow:hidden;
+            font-size:16px;
+            height:100vh; height:100dvh;
         }
 
-        /* svg symbols (hidden) */
         .svg-defs { position:absolute; width:0; height:0; overflow:hidden; }
 
-        /* ===== SLIDES ===== */
+        /* slides */
         .slide {
-            position: fixed; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; text-align: center;
-            padding: 40px 20px;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
-            pointer-events: none;
-            z-index: 2;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            position:fixed; inset:0;
+            display:flex; align-items:center; justify-content:center;
+            flex-direction:column; text-align:center;
+            padding:40px 20px;
+            opacity:0;
+            transform:translateY(40px);
+            transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
+            pointer-events:none;
+            z-index:2;
+            overflow-y:auto;
+            -webkit-overflow-scrolling:touch;
         }
         .slide.active {
-            opacity: 1; transform: translateY(0);
-            pointer-events: auto;
+            opacity:1; transform:translateY(0);
+            pointer-events:auto;
         }
         .slide.exit {
-            opacity: 0; transform: translateY(-40px);
-            pointer-events: none;
+            opacity:0; transform:translateY(-40px);
+            pointer-events:none;
         }
 
-        /* ===== BACKGROUNDS ===== */
+        /* bg layers */
         .stars { position:fixed; inset:0; z-index:0; pointer-events:none; }
         .star {
             position:absolute; background:#fff; border-radius:50%;
-            animation: twinkle var(--d) ease-in-out infinite var(--del);
+            animation:twinkle var(--d) ease-in-out infinite var(--del);
             opacity:0;
         }
         @keyframes twinkle { 0%,100%{opacity:0} 50%{opacity:var(--o)} }
@@ -65,41 +64,44 @@
 
         .pt {
             position:fixed; pointer-events:none; z-index:3;
-            animation: fall linear forwards;
+            animation:fall linear forwards;
         }
         @keyframes fall {
-            0%   { transform:translateY(-5vh) rotate(0) translateX(0); opacity:.6; }
-            25%  { transform:translateY(25vh) rotate(90deg) translateX(18px); }
-            50%  { transform:translateY(50vh) rotate(180deg) translateX(-12px); }
-            75%  { transform:translateY(75vh) rotate(270deg) translateX(15px); }
-            100% { transform:translateY(110vh) rotate(360deg) translateX(-6px); opacity:0; }
+            0%  {transform:translateY(-5vh) rotate(0) translateX(0);opacity:.6}
+            25% {transform:translateY(25vh) rotate(90deg) translateX(18px)}
+            50% {transform:translateY(50vh) rotate(180deg) translateX(-12px)}
+            75% {transform:translateY(75vh) rotate(270deg) translateX(15px)}
+            100%{transform:translateY(110vh) rotate(360deg) translateX(-6px);opacity:0}
         }
 
         .th {
             position:fixed; pointer-events:none; z-index:9998;
-            animation: pop .7s ease forwards;
+            animation:pop .7s ease forwards;
         }
         @keyframes pop {
-            0% { opacity:1; transform:scale(.5) translateY(0); }
-            100% { opacity:0; transform:scale(1.3) translateY(-45px); }
+            0%{opacity:1;transform:scale(.5) translateY(0)}
+            100%{opacity:0;transform:scale(1.3) translateY(-45px)}
         }
 
         .boom { position:fixed; inset:0; pointer-events:none; z-index:9999; }
 
-        /* ===== SVG ICONS ===== */
+        /* svg icon helper */
         .icon { display:inline-block; vertical-align:middle; }
         .icon svg { display:block; }
 
-        /* ===== COMMON ===== */
         .dancing { font-family:'Dancing Script',cursive; }
         .lora { font-family:'Lora',serif; }
 
         @keyframes beat {
-            0%,100%{transform:scale(1)} 14%{transform:scale(1.18)}
-            28%{transform:scale(1)} 42%{transform:scale(1.12)} 56%{transform:scale(1)}
+            0%,100%{transform:scale(1)}
+            14%{transform:scale(1.18)}
+            28%{transform:scale(1)}
+            42%{transform:scale(1.12)}
+            56%{transform:scale(1)}
         }
         @keyframes grad {
-            0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}
+            0%,100%{background-position:0% 50%}
+            50%{background-position:100% 50%}
         }
         @keyframes sway {
             0%,100%{transform:translateY(0) rotate(0)}
@@ -107,79 +109,81 @@
             75%{transform:translateY(-4px) rotate(-2deg)}
         }
         @keyframes fadeUp {
-            from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)}
+            from{opacity:0;transform:translateY(16px)}
+            to{opacity:1;transform:translateY(0)}
         }
 
-        /* ===== CONTINUE BUTTON ===== */
+        /* continue button */
         .continue-btn {
-            margin-top: 28px;
-            background: none;
-            border: 1px solid rgba(255,107,138,.25);
-            color: rgba(255,158,181,.6);
-            font-family: 'Lora', serif;
-            font-style: italic;
-            font-size: 13px;
-            padding: 10px 28px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all .4s ease;
-            -webkit-appearance: none;
-            touch-action: manipulation;
-            animation: fadeUp 1s ease forwards 1.5s;
-            opacity: 0;
+            margin-top:28px;
+            background:none;
+            border:1px solid rgba(255,107,138,.25);
+            color:rgba(255,158,181,.6);
+            font-family:'Lora',serif;
+            font-style:italic;
+            font-size:14px;
+            padding:12px 32px;
+            border-radius:30px;
+            cursor:pointer;
+            transition:all .4s ease;
+            -webkit-appearance:none;
+            touch-action:manipulation;
+            animation:fadeUp 1s ease forwards 1.5s;
+            opacity:0;
+            user-select:none;
+            position:relative;
+            z-index:50;
         }
-        .continue-btn:active { transform:scale(.93); }
-        .continue-btn:hover {
-            border-color: rgba(255,107,138,.5);
-            color: var(--pink);
+        .continue-btn:active {
+            transform:scale(.93);
+            background:rgba(255,107,138,.1);
+            border-color:rgba(255,107,138,.5);
+            color:var(--pink);
         }
         .continue-arrow {
-            display: inline-block;
-            margin-left: 6px;
-            transition: transform .3s;
+            display:inline-block; margin-left:6px;
         }
-        .continue-btn:hover .continue-arrow { transform:translateX(4px); }
 
         /* ===== SLIDE 0: HERO ===== */
         .s0 {
             background:
-                radial-gradient(ellipse at 50% 80%, rgba(194,24,91,.2), transparent 55%),
-                radial-gradient(ellipse at 50% 10%, rgba(255,107,138,.08), transparent 45%);
+                radial-gradient(ellipse at 50% 80%,rgba(194,24,91,.2),transparent 55%),
+                radial-gradient(ellipse at 50% 10%,rgba(255,107,138,.08),transparent 45%);
         }
         .hero-heart {
-            animation: beat 1.2s ease-in-out infinite;
-            filter: drop-shadow(0 0 18px rgba(255,107,138,.4));
-            margin-bottom: 14px;
+            animation:beat 1.2s ease-in-out infinite;
+            filter:drop-shadow(0 0 18px rgba(255,107,138,.4));
+            margin-bottom:14px;
         }
         .s0 h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(28px,9vw,72px);
-            background: linear-gradient(135deg,#ff6b8a,#ffd700,#ff6b8a,#ff9a9e);
+            font-family:'Dancing Script',cursive;
+            font-size:clamp(28px,9vw,72px);
+            background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff6b8a,#ff9a9e);
             background-size:300% 300%;
             -webkit-background-clip:text; background-clip:text;
             -webkit-text-fill-color:transparent;
-            animation: grad 4s ease infinite;
-            line-height: 1.3;
+            animation:grad 4s ease infinite;
+            line-height:1.3;
         }
         .glow {
-            -webkit-text-fill-color: var(--gold);
-            text-shadow: 0 0 12px rgba(255,215,0,.4);
-            font-weight: 700;
+            -webkit-text-fill-color:var(--gold);
+            text-shadow:0 0 12px rgba(255,215,0,.4);
+            font-weight:700;
         }
         .s0 .sub {
             font-family:'Lora',serif; font-style:italic;
-            font-size: clamp(12px,3.5vw,18px);
-            color: #ff9eb5; margin-top: 8px;
-            opacity:0; animation: fadeUp 1s ease forwards .6s;
+            font-size:clamp(12px,3.5vw,18px);
+            color:#ff9eb5; margin-top:8px;
+            opacity:0; animation:fadeUp 1s ease forwards .6s;
         }
 
         /* ===== SLIDE 1: LETTER ===== */
         .s1 {
-            background: linear-gradient(180deg, var(--bg), #2d1320, var(--bg));
+            background:linear-gradient(180deg,var(--bg),#2d1320,var(--bg));
         }
         .letter-box { width:min(520px,100%); }
         .letter {
-            background: linear-gradient(145deg,#fff9f0,#fff0e6,#ffecd2);
+            background:linear-gradient(145deg,#fff9f0,#fff0e6,#ffecd2);
             border-radius:14px;
             padding:36px 20px 42px; color:#4a2030;
             position:relative;
@@ -189,7 +193,7 @@
         .letter-stamp {
             position:absolute; top:-18px; left:50%;
             transform:translateX(-50%);
-            filter: drop-shadow(0 3px 8px rgba(255,107,138,.25));
+            filter:drop-shadow(0 3px 8px rgba(255,107,138,.25));
         }
         .letter::after {
             content:''; position:absolute; inset:0;
@@ -213,6 +217,7 @@
             font-family:'Dancing Script',cursive;
             font-size:clamp(18px,5vw,24px);
             color:var(--rose); text-align:right; margin-top:18px;
+            display:flex; align-items:center; justify-content:flex-end; gap:6px;
         }
         .seal {
             position:absolute; bottom:-12px; right:16px;
@@ -225,8 +230,8 @@
 
         /* ===== SLIDE 2: REASONS ===== */
         .s2 {
-            background: linear-gradient(180deg,var(--bg),#1f0f18,var(--bg));
-            padding: 40px 14px;
+            background:linear-gradient(180deg,var(--bg),#1f0f18,var(--bg));
+            padding:40px 14px;
         }
         .stitle {
             font-family:'Dancing Script',cursive;
@@ -247,7 +252,7 @@
             display:flex; align-items:flex-start; gap:14px;
             text-align:left;
             opacity:0; transform:translateY(20px);
-            animation: fadeUp .6s ease forwards;
+            animation:fadeUp .6s ease forwards;
         }
         .card:nth-child(1){animation-delay:.1s}
         .card:nth-child(2){animation-delay:.2s}
@@ -267,8 +272,8 @@
 
         /* ===== SLIDE 3: TIMELINE ===== */
         .s3 {
-            background: linear-gradient(180deg,var(--bg),#2a1525,var(--bg));
-            padding: 40px 14px;
+            background:linear-gradient(180deg,var(--bg),#2a1525,var(--bg));
+            padding:40px 14px;
         }
         .tl { max-width:500px; margin:0 auto; position:relative; padding-left:26px; width:100%; }
         .tl::before {
@@ -279,7 +284,7 @@
         .tl-i {
             position:relative; margin-bottom:28px;
             opacity:0; transform:translateX(14px);
-            animation: fadeUp .5s ease forwards;
+            animation:fadeUp .5s ease forwards;
         }
         .tl-i:nth-child(1){animation-delay:.1s}
         .tl-i:nth-child(2){animation-delay:.25s}
@@ -314,13 +319,13 @@
                 linear-gradient(180deg,var(--bg),#1f1020,var(--bg));
         }
         .prom-icon {
-            animation: sway 6s ease-in-out infinite;
+            animation:sway 6s ease-in-out infinite;
             filter:drop-shadow(0 0 20px rgba(255,107,138,.25));
             margin-bottom:14px;
         }
         .prom-list {
             list-style:none; max-width:380px; width:100%; padding:0 4px;
-            margin-top: 20px;
+            margin-top:20px;
         }
         .prom-list li {
             font-family:'Lora',serif; font-style:italic;
@@ -328,7 +333,7 @@
             padding:10px 0;
             border-bottom:1px solid rgba(255,107,138,.06);
             display:flex; align-items:center; gap:8px;
-            opacity:0; animation: fadeUp .4s ease forwards;
+            opacity:0; animation:fadeUp .4s ease forwards;
         }
         .prom-list li:nth-child(1){animation-delay:.1s}
         .prom-list li:nth-child(2){animation-delay:.2s}
@@ -340,9 +345,9 @@
         .prom-list li:nth-child(8){animation-delay:.8s}
         .prom-heart { flex-shrink:0; }
 
-        /* ===== SLIDE 5: VALENTINE BUTTON ===== */
+        /* ===== SLIDE 5: VALENTINE ===== */
         .s5 {
-            background: linear-gradient(180deg,var(--bg),#2d1328,var(--bg));
+            background:linear-gradient(180deg,var(--bg),#2d1328,var(--bg));
         }
         .s5 h2 {
             font-family:'Dancing Script',cursive;
@@ -354,12 +359,14 @@
             border:none; color:#fff;
             font-family:'Dancing Script',cursive;
             font-size:clamp(17px,5vw,24px);
-            padding:14px 32px; border-radius:50px;
+            padding:16px 36px; border-radius:50px;
             cursor:pointer; position:relative; overflow:hidden;
             box-shadow:0 6px 22px rgba(194,24,91,.28);
             transition:all .3s; -webkit-appearance:none;
             touch-action:manipulation;
             display:inline-flex; align-items:center; gap:8px;
+            user-select:none;
+            z-index:50;
         }
         .btn:active { transform:scale(.93); }
         .btn::after {
@@ -379,7 +386,6 @@
             color:var(--gold); margin-top:18px;
             min-height:36px;
             text-shadow:0 0 14px rgba(255,215,0,.2);
-            transition: opacity .5s, transform .5s;
         }
         .counter {
             font-family:'Dancing Script',cursive;
@@ -400,8 +406,8 @@
                 var(--bg);
         }
         .final-heart {
-            animation: sway 8s ease-in-out infinite;
-            margin-bottom: 20px;
+            animation:sway 8s ease-in-out infinite;
+            margin-bottom:20px;
             filter:drop-shadow(0 0 25px rgba(255,107,138,.3));
         }
         .s6 h2 {
@@ -420,18 +426,18 @@
             font-size:clamp(12px,3.5vw,18px);
             max-width:440px; line-height:1.8; padding:0 6px;
         }
-        .s6 .hearts-row {
+        .hearts-row {
             margin-top:20px;
-            display:flex; gap:8px;
+            display:flex; gap:6px; justify-content:center;
             animation:beat 1.2s ease-in-out infinite;
         }
 
-        /* ===== MUSIC ===== */
+        /* music */
         .mu {
             position:fixed;
             bottom:max(14px,env(safe-area-inset-bottom,14px));
             right:12px;
-            width:42px; height:42px;
+            width:44px; height:44px;
             background:linear-gradient(135deg,var(--rose),var(--pink));
             border:none; border-radius:50%;
             cursor:pointer; z-index:1000;
@@ -439,6 +445,7 @@
             transition:all .3s; -webkit-appearance:none;
             touch-action:manipulation;
             display:flex; align-items:center; justify-content:center;
+            user-select:none;
         }
         .mu:active { transform:scale(.88); }
         .mu.on { animation:mpulse 1s ease-in-out infinite; }
@@ -452,9 +459,9 @@
             opacity:0; pointer-events:none; z-index:-1;
         }
 
-        /* ===== SLIDE INDICATOR ===== */
+        /* dots */
         .dots {
-            position:fixed; right:12px; top:50%;
+            position:fixed; right:10px; top:50%;
             transform:translateY(-50%);
             display:flex; flex-direction:column; gap:8px;
             z-index:100;
@@ -464,6 +471,7 @@
             border-radius:50%;
             background:rgba(255,107,138,.2);
             transition:all .4s;
+            cursor:pointer;
         }
         .dot.active {
             background:var(--pink);
@@ -482,53 +490,40 @@
 </head>
 <body>
 
-<!-- ===== SVG DEFINITIONS ===== -->
 <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <!-- Heart -->
         <symbol id="i-heart" viewBox="0 0 100 100">
             <path d="M50,88 C50,88 10,65 10,35 C10,15 25,5 50,25 C75,5 90,15 90,35 C90,65 50,88 50,88Z" fill="currentColor"/>
         </symbol>
-        <!-- Envelope -->
         <symbol id="i-envelope" viewBox="0 0 100 80">
             <rect x="5" y="10" width="90" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="4"/>
             <polyline points="5,10 50,45 95,10" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
         </symbol>
-        <!-- Star -->
         <symbol id="i-star" viewBox="0 0 100 100">
             <path d="M50,5 L61,38 L97,38 L68,60 L79,93 L50,73 L21,93 L32,60 L3,38 L39,38Z" fill="currentColor"/>
         </symbol>
-        <!-- Sparkle -->
         <symbol id="i-sparkle" viewBox="0 0 100 100">
             <path d="M50,0 C52,35 65,48 100,50 C65,52 52,65 50,100 C48,65 35,52 0,50 C35,48 48,35 50,0Z" fill="currentColor"/>
         </symbol>
-        <!-- Smile -->
         <symbol id="i-smile" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/>
             <circle cx="35" cy="40" r="5" fill="currentColor"/>
             <circle cx="65" cy="40" r="5" fill="currentColor"/>
             <path d="M30,60 Q50,80 70,60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
         </symbol>
-        <!-- Strong / Diamond -->
         <symbol id="i-diamond" viewBox="0 0 100 100">
             <path d="M50,90 L10,35 L25,10 L75,10 L90,35Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
-            <polyline points="10,35 50,90 90,35" fill="none" stroke="currentColor" stroke-width="3"/>
-            <line x1="25" y1="10" x2="50" y2="35" stroke="currentColor" stroke-width="3"/>
-            <line x1="75" y1="10" x2="50" y2="35" stroke="currentColor" stroke-width="3"/>
             <line x1="10" y1="35" x2="90" y2="35" stroke="currentColor" stroke-width="3"/>
         </symbol>
-        <!-- Embrace / Hands -->
         <symbol id="i-embrace" viewBox="0 0 100 100">
             <path d="M20,70 Q20,30 50,25 Q80,30 80,70" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
             <circle cx="50" cy="20" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
             <path d="M5,55 Q15,40 30,50" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
             <path d="M95,55 Q85,40 70,50" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
         </symbol>
-        <!-- Infinity -->
         <symbol id="i-infinity" viewBox="0 0 120 60">
             <path d="M60,30 C60,10 80,0 95,15 C110,30 95,50 60,30 C25,50 10,30 25,15 C40,0 60,10 60,30Z" fill="none" stroke="currentColor" stroke-width="4"/>
         </symbol>
-        <!-- Rose / Flower -->
         <symbol id="i-rose" viewBox="0 0 100 100">
             <path d="M50,35 Q40,15 50,5 Q60,15 50,35" fill="currentColor" opacity=".7"/>
             <path d="M50,35 Q30,25 25,15 Q40,20 50,35" fill="currentColor" opacity=".5"/>
@@ -536,17 +531,13 @@
             <path d="M50,35 Q35,30 20,30 Q35,35 50,35" fill="currentColor" opacity=".6"/>
             <path d="M50,35 Q65,30 80,30 Q65,35 50,35" fill="currentColor" opacity=".6"/>
             <line x1="50" y1="35" x2="50" y2="90" stroke="currentColor" stroke-width="3" opacity=".5"/>
-            <path d="M50,55 Q40,50 35,45" fill="none" stroke="currentColor" stroke-width="2" opacity=".4"/>
-            <path d="M50,70 Q60,65 65,60" fill="none" stroke="currentColor" stroke-width="2" opacity=".4"/>
         </symbol>
-        <!-- Chat bubble -->
         <symbol id="i-chat" viewBox="0 0 100 100">
             <path d="M15,20 H85 Q90,20 90,25 V60 Q90,65 85,65 H35 L20,80 V65 H15 Q10,65 10,60 V25 Q10,20 15,20Z" fill="none" stroke="currentColor" stroke-width="4"/>
             <circle cx="35" cy="42" r="4" fill="currentColor"/>
             <circle cx="50" cy="42" r="4" fill="currentColor"/>
             <circle cx="65" cy="42" r="4" fill="currentColor"/>
         </symbol>
-        <!-- Butterfly -->
         <symbol id="i-butterfly" viewBox="0 0 100 100">
             <path d="M50,50 Q25,20 15,35 Q5,55 50,50" fill="none" stroke="currentColor" stroke-width="3"/>
             <path d="M50,50 Q25,60 20,80 Q30,75 50,50" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -554,21 +545,17 @@
             <path d="M50,50 Q75,60 80,80 Q70,75 50,50" fill="none" stroke="currentColor" stroke-width="3"/>
             <line x1="50" y1="50" x2="50" y2="90" stroke="currentColor" stroke-width="2"/>
         </symbol>
-        <!-- Note / Music -->
         <symbol id="i-note" viewBox="0 0 80 100">
             <ellipse cx="25" cy="80" rx="14" ry="10" fill="currentColor"/>
             <line x1="39" y1="80" x2="39" y2="15" stroke="currentColor" stroke-width="4"/>
             <path d="M39,15 Q60,10 65,25 Q60,20 39,25" fill="currentColor"/>
         </symbol>
-        <!-- Small heart for list items -->
         <symbol id="i-smheart" viewBox="0 0 20 20">
             <path d="M10,17 C10,17 2,13 2,7 C2,3 5,1 10,5 C15,1 18,3 18,7 C18,13 10,17 10,17Z" fill="currentColor"/>
         </symbol>
-        <!-- Petal shapes for falling -->
         <symbol id="i-petal" viewBox="0 0 20 20">
             <ellipse cx="10" cy="10" rx="6" ry="9" transform="rotate(15 10 10)" fill="currentColor"/>
         </symbol>
-        <!-- Arrow -->
         <symbol id="i-arrow" viewBox="0 0 24 24">
             <path d="M5,12 H19 M13,6 L19,12 L13,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
@@ -578,21 +565,19 @@
 <div class="stars" id="stars"></div>
 <canvas id="cv"></canvas>
 <div class="boom" id="boom"></div>
-
-<!-- Slide indicators -->
 <div class="dots" id="dots"></div>
 
-<!-- ========== SLIDE 0: HERO ========== -->
+<!-- SLIDE 0: HERO -->
 <div class="slide s0 active" data-slide="0">
     <div class="hero-heart">
         <svg class="icon" width="80" height="80" style="color:var(--pink)"><use href="#i-heart"/></svg>
     </div>
     <h1>Happy Valentine's Day,<br><span class="glow">Ansam</span></h1>
     <p class="sub">every love story is beautiful, but ours is my favorite</p>
-    <button class="continue-btn" onclick="goSlide(1)">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="1">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 1: LETTER ========== -->
+<!-- SLIDE 1: LETTER -->
 <div class="slide s1" data-slide="1">
     <div class="letter-box">
         <div class="letter">
@@ -604,18 +589,19 @@
             <p>from the very first moment, you painted my world with colors i never knew existed. your smile is my sunrise, your laughter is the melody my heart dances to every single day.</p>
             <p>you are the reason i believe in magic — the kind that turns ordinary moments into something extraordinary, the kind that makes a simple glance feel like a forever memory.</p>
             <p>on this valentine's day, i just want you to know — my love for you grows deeper with every heartbeat. you are my everything, my always, my forever.</p>
-            <div class="sig">forever & always yours
-                <svg class="icon" width="18" height="18" style="color:var(--rose);vertical-align:middle;margin-left:4px"><use href="#i-heart"/></svg>
+            <div class="sig">
+                forever & always yours
+                <svg class="icon" width="18" height="18" style="color:var(--rose)"><use href="#i-heart"/></svg>
             </div>
             <div class="seal">
                 <svg class="icon" width="22" height="22" style="color:#fce4ec"><use href="#i-heart"/></svg>
             </div>
         </div>
     </div>
-    <button class="continue-btn" onclick="goSlide(2)">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="2">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 2: REASONS ========== -->
+<!-- SLIDE 2: REASONS -->
 <div class="slide s2" data-slide="2">
     <h2 class="stitle">why i love you</h2>
     <div class="cards">
@@ -644,10 +630,10 @@
             <div><h3>simply everything</h3><p>your voice, your eyes, your laugh — every detail makes me fall deeper.</p></div>
         </div>
     </div>
-    <button class="continue-btn" onclick="goSlide(3)">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="3">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 3: TIMELINE ========== -->
+<!-- SLIDE 3: TIMELINE -->
 <div class="slide s3" data-slide="3">
     <h2 class="stitle">our story so far</h2>
     <div class="tl">
@@ -692,10 +678,10 @@
             </div>
         </div>
     </div>
-    <button class="continue-btn" onclick="goSlide(4)">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="4">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 4: PROMISES ========== -->
+<!-- SLIDE 4: PROMISES -->
 <div class="slide s4" data-slide="4">
     <div class="prom-icon">
         <svg class="icon" width="56" height="56" style="color:var(--pink)"><use href="#i-heart"/></svg>
@@ -711,10 +697,10 @@
         <li><svg class="prom-heart icon" width="14" height="14" style="color:var(--pink)"><use href="#i-smheart"/></svg> to never let you forget how amazing you are</li>
         <li><svg class="prom-heart icon" width="14" height="14" style="color:var(--pink)"><use href="#i-smheart"/></svg> to be yours — completely, endlessly, always</li>
     </ul>
-    <button class="continue-btn" onclick="goSlide(5)">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="5">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 5: VALENTINE ========== -->
+<!-- SLIDE 5: VALENTINE -->
 <div class="slide s5" data-slide="5">
     <h2>i have a question...</h2>
     <button class="btn" id="btn">
@@ -726,10 +712,10 @@
         <svg class="icon" width="16" height="16" style="color:var(--pink)"><use href="#i-heart"/></svg>
         my love for you: <b id="cnt">&infin;</b> and counting...
     </div>
-    <button class="continue-btn" onclick="goSlide(6)" style="margin-top:20px">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
+    <button class="continue-btn" data-go="6" style="margin-top:20px">continue <span class="continue-arrow"><svg class="icon" width="16" height="16" style="color:currentColor"><use href="#i-arrow"/></svg></span></button>
 </div>
 
-<!-- ========== SLIDE 6: FINAL ========== -->
+<!-- SLIDE 6: FINAL -->
 <div class="slide s6" data-slide="6">
     <div class="final-heart">
         <svg class="icon" width="120" height="120" style="color:var(--pink)">
@@ -739,7 +725,7 @@
     </div>
     <h2>i love you, Ansam</h2>
     <p>you are the best thing that ever happened to me. today, tomorrow, and every day after — my heart is yours.</p>
-    <div class="hearts-row" style="margin-top:20px; display:flex; gap:6px; justify-content:center;">
+    <div class="hearts-row">
         <svg class="icon" width="24" height="24" style="color:#ff6b8a"><use href="#i-heart"/></svg>
         <svg class="icon" width="24" height="24" style="color:#ff9eb5"><use href="#i-heart"/></svg>
         <svg class="icon" width="24" height="24" style="color:#c2185b"><use href="#i-heart"/></svg>
@@ -756,217 +742,249 @@
 
 <script>
 (function(){
+
     // ===== YOUTUBE VIDEO ID =====
     const YT_ID = 'bo_efYhYU2A';
-    // 'bo_efYhYU2A' = All of Me
-    // '2Vv-BfVoq4g' = Perfect
-    // 'lp-EO5I60KA' = Thinking Out Loud
 
     const mob = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const touch = 'ontouchstart' in window;
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    let current = 0;
-    let transitioning = false;
+    const total = slides.length;
+    let cur = 0;
+    let busy = false;
 
-    // ===== DOTS =====
+    // dots
     const dotsEl = document.getElementById('dots');
-    for(let i=0;i<totalSlides;i++){
+    for(let i = 0; i < total; i++){
         const d = document.createElement('div');
         d.className = 'dot' + (i===0?' active':'');
+        d.addEventListener('click', function(){ goSlide(i); });
         dotsEl.appendChild(d);
     }
     const dots = dotsEl.querySelectorAll('.dot');
 
-    function updateDots() {
-        dots.forEach((d,i) => d.classList.toggle('active', i===current));
+    function updateDots(){
+        dots.forEach((d,i) => d.classList.toggle('active', i===cur));
     }
 
-    // ===== SLIDE NAVIGATION =====
-    window.goSlide = function(n) {
-        if(transitioning || n===current || n<0 || n>=totalSlides) return;
-        transitioning = true;
+    // ===== SLIDE NAV =====
+    function goSlide(n){
+        if(busy || n===cur || n<0 || n>=total) return;
+        busy = true;
 
-        const prev = slides[current];
-        const next = slides[n];
-
-        // direction
-        const goingForward = n > current;
+        var prev = slides[cur];
+        var next = slides[n];
+        var forward = n > cur;
 
         prev.classList.remove('active');
         prev.classList.add('exit');
 
-        next.style.transform = goingForward ? 'translateY(40px)' : 'translateY(-40px)';
+        // reset next position before animating in
+        next.style.transition = 'none';
         next.style.opacity = '0';
+        next.style.transform = forward ? 'translateY(40px)' : 'translateY(-40px)';
         next.classList.remove('exit');
 
-        requestAnimationFrame(() => {
-            next.classList.add('active');
-            next.style.transform = '';
-            next.style.opacity = '';
-        });
+        // force reflow
+        void next.offsetHeight;
 
-        current = n;
+        // now animate in
+        next.style.transition = '';
+        next.classList.add('active');
+
+        cur = n;
         updateDots();
 
-        setTimeout(() => {
+        setTimeout(function(){
             prev.classList.remove('exit');
-            transitioning = false;
-        }, 850);
-    };
+            busy = false;
+        }, 900);
+    }
 
-    // ===== SWIPE SUPPORT =====
-    let startY = 0;
-    document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, {passive:true});
-    document.addEventListener('touchend', e => {
-        const diff = startY - e.changedTouches[0].clientY;
-        if(Math.abs(diff) > 60) {
-            if(diff > 0 && current < totalSlides-1) goSlide(current+1);
-            else if(diff < 0 && current > 0) goSlide(current-1);
+    // ===== BUTTON CLICKS (continue + dots) =====
+    document.addEventListener('click', function(e){
+        var btn = e.target.closest('[data-go]');
+        if(btn){
+            goSlide(parseInt(btn.getAttribute('data-go')));
+        }
+    });
+
+    // ===== SWIPE =====
+    var touchStartY = 0;
+    var touchStartX = 0;
+    var swiping = false;
+
+    document.addEventListener('touchstart', function(e){
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        swiping = true;
+    }, {passive:true});
+
+    document.addEventListener('touchend', function(e){
+        if(!swiping) return;
+        swiping = false;
+        var dy = touchStartY - e.changedTouches[0].clientY;
+        var dx = touchStartX - e.changedTouches[0].clientX;
+
+        // only if vertical swipe is dominant
+        if(Math.abs(dy) > 70 && Math.abs(dy) > Math.abs(dx)){
+            if(dy > 0) goSlide(cur + 1);
+            else goSlide(cur - 1);
         }
     }, {passive:true});
 
     // keyboard
-    document.addEventListener('keydown', e => {
-        if(e.key==='ArrowDown'||e.key===' ') { e.preventDefault(); goSlide(current+1); }
-        if(e.key==='ArrowUp') { e.preventDefault(); goSlide(current-1); }
+    document.addEventListener('keydown', function(e){
+        if(e.key==='ArrowDown'||e.key===' '||e.key==='Enter'){
+            e.preventDefault(); goSlide(cur+1);
+        }
+        if(e.key==='ArrowUp'){
+            e.preventDefault(); goSlide(cur-1);
+        }
     });
 
-    // mouse wheel
-    let wheelCooldown = false;
-    document.addEventListener('wheel', e => {
-        if(wheelCooldown) return;
-        wheelCooldown = true;
-        if(e.deltaY > 30) goSlide(current+1);
-        else if(e.deltaY < -30) goSlide(current-1);
-        setTimeout(() => wheelCooldown = false, 1200);
+    // wheel
+    var wheelOk = true;
+    document.addEventListener('wheel', function(e){
+        if(!wheelOk) return;
+        wheelOk = false;
+        if(e.deltaY > 30) goSlide(cur+1);
+        else if(e.deltaY < -30) goSlide(cur-1);
+        setTimeout(function(){ wheelOk = true; }, 1200);
     }, {passive:true});
 
     // ===== STARS =====
-    const starsEl = document.getElementById('stars');
-    for(let i=0; i<(mob?60:120); i++){
-        const s = document.createElement('div');
+    var starsEl = document.getElementById('stars');
+    var sc = mob ? 60 : 120;
+    for(var i = 0; i < sc; i++){
+        var s = document.createElement('div');
         s.className = 'star';
         s.style.left = Math.random()*100+'%';
         s.style.top = Math.random()*100+'%';
         s.style.setProperty('--d',(2+Math.random()*4)+'s');
         s.style.setProperty('--del',Math.random()*4+'s');
         s.style.setProperty('--o',.3+Math.random()*.5);
-        const sz=(1+Math.random()*1.5)+'px';
-        s.style.width=sz; s.style.height=sz;
+        var sz = (1+Math.random()*1.5)+'px';
+        s.style.width = sz; s.style.height = sz;
         starsEl.appendChild(s);
     }
 
     // ===== CANVAS HEARTS =====
-    const cv=document.getElementById('cv');
-    const cx=cv.getContext('2d');
-    function rz(){cv.width=innerWidth;cv.height=innerHeight}
+    var cv = document.getElementById('cv');
+    var cx = cv.getContext('2d');
+    function rz(){ cv.width=innerWidth; cv.height=innerHeight; }
     rz(); addEventListener('resize',rz);
 
-    class Heart{
-        constructor(){this.r()}
-        r(){
-            this.x=Math.random()*cv.width;
-            this.y=cv.height+10;
-            this.sz=4+Math.random()*10;
-            this.vy=.12+Math.random()*.5;
-            this.vx=(Math.random()-.5)*.2;
-            this.op=.04+Math.random()*.18;
-            this.rot=Math.random()*Math.PI*2;
-            this.rv=(Math.random()-.5)*.01;
-            this.w=Math.random()*Math.PI*2;
-            this.wv=.005+Math.random()*.01;
-            const c=['#ff6b8a','#ff9eb5','#c2185b','#ff4081','#e91e63','#ffd700'];
-            this.c=c[Math.random()*c.length|0];
-        }
-        d(){
-            cx.save();
-            cx.translate(this.x,this.y);
-            cx.rotate(this.rot);
-            cx.globalAlpha=this.op;
-            cx.fillStyle=this.c;
-            const s=this.sz;
-            cx.beginPath();
-            cx.moveTo(0,s*.3);
-            cx.bezierCurveTo(-s*.5,-s*.3,-s,s*.1,0,s);
-            cx.bezierCurveTo(s,s*.1,s*.5,-s*.3,0,s*.3);
-            cx.fill();
-            cx.restore();
-        }
-        u(){
-            this.y-=this.vy;
-            this.w+=this.wv;
-            this.x+=Math.sin(this.w)*.3+this.vx;
-            this.rot+=this.rv;
-            if(this.y<-20)this.r();
-        }
+    var hc = mob ? 8 : 18;
+    var colors = ['#ff6b8a','#ff9eb5','#c2185b','#ff4081','#e91e63','#ffd700'];
+
+    function Heart(){
+        this.reset();
     }
-    const hearts=Array.from({length:mob?8:18},()=>new Heart);
+    Heart.prototype.reset = function(){
+        this.x = Math.random()*cv.width;
+        this.y = cv.height+10;
+        this.sz = 4+Math.random()*10;
+        this.vy = .12+Math.random()*.5;
+        this.vx = (Math.random()-.5)*.2;
+        this.op = .04+Math.random()*.18;
+        this.rot = Math.random()*Math.PI*2;
+        this.rv = (Math.random()-.5)*.01;
+        this.w = Math.random()*Math.PI*2;
+        this.wv = .005+Math.random()*.01;
+        this.c = colors[Math.random()*colors.length|0];
+    };
+    Heart.prototype.draw = function(){
+        cx.save();
+        cx.translate(this.x,this.y);
+        cx.rotate(this.rot);
+        cx.globalAlpha = this.op;
+        cx.fillStyle = this.c;
+        var s = this.sz;
+        cx.beginPath();
+        cx.moveTo(0,s*.3);
+        cx.bezierCurveTo(-s*.5,-s*.3,-s,s*.1,0,s);
+        cx.bezierCurveTo(s,s*.1,s*.5,-s*.3,0,s*.3);
+        cx.fill();
+        cx.restore();
+    };
+    Heart.prototype.update = function(){
+        this.y -= this.vy;
+        this.w += this.wv;
+        this.x += Math.sin(this.w)*.3 + this.vx;
+        this.rot += this.rv;
+        if(this.y < -20) this.reset();
+    };
+
+    var hearts = [];
+    for(var i=0;i<hc;i++) hearts.push(new Heart());
+
     (function loop(){
         cx.clearRect(0,0,cv.width,cv.height);
-        hearts.forEach(h=>{h.u();h.d()});
+        for(var i=0;i<hearts.length;i++){
+            hearts[i].update();
+            hearts[i].draw();
+        }
         requestAnimationFrame(loop);
     })();
 
-    // ===== SVG PETALS =====
-    const petalColors = ['#ff6b8a','#ff9eb5','#c2185b','#ffb7c5','#e8899e'];
-    setInterval(()=>{
-        const p=document.createElement('div');
-        p.className='pt';
-        const color = petalColors[Math.random()*petalColors.length|0];
-        p.innerHTML=`<svg width="14" height="14" style="color:${color}"><use href="#i-petal"/></svg>`;
-        p.style.left=Math.random()*100+'vw';
-        const dur=8+Math.random()*6;
-        p.style.animationDuration=dur+'s';
+    // ===== PETALS =====
+    var petalColors = ['#ff6b8a','#ff9eb5','#c2185b','#ffb7c5','#e8899e'];
+    setInterval(function(){
+        var p = document.createElement('div');
+        p.className = 'pt';
+        var c = petalColors[Math.random()*petalColors.length|0];
+        p.innerHTML = '<svg width="14" height="14" style="color:'+c+'"><use href="#i-petal"/></svg>';
+        p.style.left = Math.random()*100+'vw';
+        var dur = 8+Math.random()*6;
+        p.style.animationDuration = dur+'s';
         document.body.appendChild(p);
-        setTimeout(()=>p.remove(),dur*1000);
-    },mob?2200:1200);
+        setTimeout(function(){ p.remove(); }, dur*1000);
+    }, mob ? 2200 : 1200);
 
     // ===== TOUCH HEARTS =====
-    if(touch){
-        let lt=0;
-        document.addEventListener('touchstart',e=>{
-            if(Date.now()-lt<140)return;
-            lt=Date.now();
-            const t=e.touches[0];
-            const h=document.createElement('div');
-            h.className='th';
-            const c=petalColors[Math.random()*petalColors.length|0];
-            h.innerHTML=`<svg width="18" height="18" style="color:${c}"><use href="#i-heart"/></svg>`;
-            h.style.left=t.clientX+'px';
-            h.style.top=t.clientY+'px';
-            document.body.appendChild(h);
-            setTimeout(()=>h.remove(),700);
-        },{passive:true});
-    }
+    var lastTouch = 0;
+    document.addEventListener('touchstart', function(e){
+        if(Date.now()-lastTouch < 140) return;
+        lastTouch = Date.now();
+        var t = e.touches[0];
+        var h = document.createElement('div');
+        h.className = 'th';
+        var c = petalColors[Math.random()*petalColors.length|0];
+        h.innerHTML = '<svg width="18" height="18" style="color:'+c+'"><use href="#i-heart"/></svg>';
+        h.style.left = t.clientX+'px';
+        h.style.top = t.clientY+'px';
+        document.body.appendChild(h);
+        setTimeout(function(){ h.remove(); }, 700);
+    }, {passive:true});
 
-    // ===== HEART EXPLOSION =====
+    // ===== EXPLOSION =====
     function explode(x,y){
-        const box=document.getElementById('boom');
-        const n=mob?12:24;
-        const cols=['#ff6b8a','#ffd700','#c2185b','#ff9eb5','#e91e63','#ffb7c5'];
-        for(let i=0;i<n;i++){
-            const h=document.createElement('div');
-            const c=cols[Math.random()*cols.length|0];
-            const sz=10+Math.random()*16;
-            h.innerHTML=`<svg width="${sz}" height="${sz}" style="color:${c}"><use href="#i-heart"/></svg>`;
-            h.style.cssText=`position:fixed;left:${x}px;top:${y}px;pointer-events:none;z-index:9999;transition:all 1s cubic-bezier(.25,.46,.45,.94);opacity:1;`;
+        var box = document.getElementById('boom');
+        var n = mob ? 12 : 24;
+        for(var i=0;i<n;i++){
+            var h = document.createElement('div');
+            var c = colors[Math.random()*colors.length|0];
+            var sz = 10+Math.random()*16;
+            h.innerHTML = '<svg width="'+sz+'" height="'+sz+'" style="color:'+c+'"><use href="#i-heart"/></svg>';
+            h.style.cssText = 'position:fixed;left:'+x+'px;top:'+y+'px;pointer-events:none;z-index:9999;transition:all 1s cubic-bezier(.25,.46,.45,.94);opacity:1;';
             box.appendChild(h);
-            requestAnimationFrame(()=>{
-                const a=(Math.PI*2*i)/n;
-                const d=40+Math.random()*(mob?110:200);
-                h.style.transform=`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) rotate(${Math.random()*360}deg)`;
-                h.style.opacity='0';
-            });
-            setTimeout(()=>h.remove(),1000);
+            (function(el,idx){
+                requestAnimationFrame(function(){
+                    var a = (Math.PI*2*idx)/n;
+                    var d = 40+Math.random()*(mob?110:200);
+                    el.style.transform = 'translate('+Math.cos(a)*d+'px,'+Math.sin(a)*d+'px) rotate('+Math.random()*360+'deg)';
+                    el.style.opacity = '0';
+                });
+                setTimeout(function(){ el.remove(); },1000);
+            })(h,i);
         }
     }
 
-    // ===== BUTTON =====
-    const btn=document.getElementById('btn');
-    const reply=document.getElementById('reply');
-    let ci=0;
-    const msgs=[
+    // ===== VALENTINE BUTTON =====
+    var vbtn = document.getElementById('btn');
+    var reply = document.getElementById('reply');
+    var ci = 0;
+    var msgs = [
         "yesss?! tap again...",
         "i knew it!!",
         "you make me the happiest",
@@ -979,53 +997,56 @@
         "...okay one more tap",
         "you're still here? i love you even more now",
         "seriously, never stop tapping",
-        "infinite taps = infinite love",
+        "infinite taps = infinite love"
     ];
-    btn.addEventListener('click',function(e){
-        const r=this.getBoundingClientRect();
-        explode(r.left+r.width/2,r.top+r.height/2);
-        reply.style.opacity='0';
-        reply.style.transform='translateY(10px)';
-        setTimeout(()=>{
-            reply.textContent=msgs[ci%msgs.length];
-            reply.style.transition='opacity .5s, transform .5s';
-            reply.style.opacity='1';
-            reply.style.transform='translateY(0)';
+
+    vbtn.addEventListener('click', function(){
+        var r = this.getBoundingClientRect();
+        explode(r.left+r.width/2, r.top+r.height/2);
+
+        reply.style.opacity = '0';
+        reply.style.transform = 'translateY(10px)';
+
+        var self = this;
+        setTimeout(function(){
+            reply.textContent = msgs[ci % msgs.length];
+            reply.style.transition = 'opacity .5s, transform .5s';
+            reply.style.opacity = '1';
+            reply.style.transform = 'translateY(0)';
         },150);
+
         ci++;
-        if(ci===1)this.innerHTML='tap for more love <svg class="icon" width="18" height="18" style="color:#fff"><use href="#i-heart"/></svg>';
-        else if(ci===5)this.innerHTML='keep going... <svg class="icon" width="18" height="18" style="color:#fff"><use href="#i-heart"/></svg>';
-        else if(ci===9)this.innerHTML="don't stop <svg class='icon' width='18' height='18' style='color:#fff'><use href='#i-heart'/></svg>";
-        if(navigator.vibrate)navigator.vibrate(35);
+        if(ci===1) self.innerHTML = 'tap for more love <svg class="icon" width="18" height="18" style="color:#fff"><use href="#i-heart"/></svg>';
+        else if(ci===5) self.innerHTML = 'keep going... <svg class="icon" width="18" height="18" style="color:#fff"><use href="#i-heart"/></svg>';
+        else if(ci===9) self.innerHTML = 'don\'t stop <svg class="icon" width="18" height="18" style="color:#fff"><use href="#i-heart"/></svg>';
+
+        if(navigator.vibrate) navigator.vibrate(35);
     });
 
-    // ===== LOVE COUNTER =====
-    let lc=999999;
-    setInterval(()=>{
-        lc+=(Math.random()*10|0)+1;
-        document.getElementById('cnt').textContent=lc.toLocaleString();
+    // ===== COUNTER =====
+    var lc = 999999;
+    setInterval(function(){
+        lc += (Math.random()*10|0)+1;
+        document.getElementById('cnt').textContent = lc.toLocaleString();
     },100);
 
     // ===== MUSIC =====
-    const muBtn=document.getElementById('mu');
-    const yt=document.getElementById('yt');
-    let musicOn=false;
-    muBtn.addEventListener('click',()=>{
+    var muBtn = document.getElementById('mu');
+    var yt = document.getElementById('yt');
+    var musicOn = false;
+
+    muBtn.addEventListener('click', function(){
         if(!musicOn){
-            yt.src=`https://www.youtube.com/embed/${YT_ID}?autoplay=1&loop=1&playlist=${YT_ID}&controls=0&showinfo=0&rel=0`;
-            musicOn=true;
+            yt.src = 'https://www.youtube.com/embed/'+YT_ID+'?autoplay=1&loop=1&playlist='+YT_ID+'&controls=0&showinfo=0&rel=0';
+            musicOn = true;
             muBtn.classList.add('on');
         } else {
-            yt.src='';
-            musicOn=false;
+            yt.src = '';
+            musicOn = false;
             muBtn.classList.remove('on');
         }
     });
 
-    // prevent zoom on buttons
-    document.querySelectorAll('button').forEach(b=>{
-        b.addEventListener('touchend',e=>e.preventDefault());
-    });
 })();
 </script>
 </body>
