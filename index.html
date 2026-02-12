@@ -7,31 +7,25 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,88 C50,88 10,65 10,35 C10,15 25,5 50,25 C75,5 90,15 90,35 C90,65 50,88 50,88Z' fill='%23ff6b8a'/></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --pink:#ff6b8a;
-            --rose:#c2185b;
-            --gold:#ffd700;
-            --soft:#e8b0c0;
-            --bg:#1a0a0e;
-        }
+        :root{--pink:#ff6b8a;--rose:#c2185b;--gold:#ffd700;--soft:#e8b0c0;--bg:#1a0a0e}
         *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-        html{scroll-behavior:smooth}
-        body{
-            background:var(--bg);color:#fff;
-            overflow:hidden;
-            height:100vh;height:100dvh;
-        }
+        body{background:var(--bg);color:#fff;overflow:hidden;height:100vh;height:100dvh}
         .svg-defs{position:absolute;width:0;height:0;overflow:hidden}
 
-        /* ===== SLIDES ===== */
+        /* ===== SLIDES — ULTRA SIMPLE ===== */
         .slide{
-            position:fixed;inset:0;
+            position:fixed;
+            top:0;left:0;width:100%;height:100%;
             overflow-y:auto;
             -webkit-overflow-scrolling:touch;
             z-index:2;
             opacity:0;
             pointer-events:none;
-            visibility:hidden;
+            transition:opacity .5s ease;
+        }
+        .slide.active{
+            opacity:1;
+            pointer-events:auto;
         }
         .slide-in{
             min-height:100%;min-height:100dvh;
@@ -39,18 +33,10 @@
             flex-direction:column;text-align:center;
             padding:50px 20px;
         }
-        .slide.active{
-            opacity:1;
-            pointer-events:auto;
-            visibility:visible;
-        }
 
-        /* bg */
+        /* bg layers */
         .stars{position:fixed;inset:0;z-index:0;pointer-events:none}
-        .star{
-            position:absolute;background:#fff;border-radius:50%;
-            animation:twinkle var(--d) ease-in-out infinite var(--del);opacity:0;
-        }
+        .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite var(--del);opacity:0}
         @keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--o)}}
         #cv{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
         .pt{position:fixed;pointer-events:none;z-index:3;animation:fall linear forwards}
@@ -62,30 +48,16 @@
             100%{transform:translateY(110vh) rotate(360deg) translateX(-6px);opacity:0}
         }
         .th{position:fixed;pointer-events:none;z-index:9998;animation:pop .7s ease forwards}
-        @keyframes pop{
-            0%{opacity:1;transform:scale(.5) translateY(0)}
-            100%{opacity:0;transform:scale(1.3) translateY(-45px)}
-        }
+        @keyframes pop{0%{opacity:1;transform:scale(.5) translateY(0)}100%{opacity:0;transform:scale(1.3) translateY(-45px)}}
         .boom{position:fixed;inset:0;pointer-events:none;z-index:9999}
-        .icon{display:inline-block;vertical-align:middle}
-        .icon svg{display:block}
 
-        @keyframes beat{
-            0%,100%{transform:scale(1)}14%{transform:scale(1.18)}
-            28%{transform:scale(1)}42%{transform:scale(1.12)}56%{transform:scale(1)}
-        }
+        @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.18)}28%{transform:scale(1)}42%{transform:scale(1.12)}56%{transform:scale(1)}}
         @keyframes grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        @keyframes sway{
-            0%,100%{transform:translateY(0) rotate(0)}
-            25%{transform:translateY(-10px) rotate(2deg)}
-            75%{transform:translateY(-4px) rotate(-2deg)}
-        }
-        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes sway{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-10px) rotate(2deg)}75%{transform:translateY(-4px) rotate(-2deg)}}
 
-        /* continue */
+        /* continue btn */
         .cbtn{
-            margin-top:28px;
-            background:none;
+            margin-top:28px;background:none;
             border:1px solid rgba(255,107,138,.3);
             color:rgba(255,158,181,.7);
             font-family:'Lora',serif;font-style:italic;font-size:14px;
@@ -95,234 +67,85 @@
             position:relative;z-index:50;
             display:inline-flex;align-items:center;gap:6px;
         }
-        .cbtn:active{
-            transform:scale(.93);
-            background:rgba(255,107,138,.12);
-            border-color:rgba(255,107,138,.6);
-            color:var(--pink);
-        }
+        .cbtn:active{transform:scale(.93);background:rgba(255,107,138,.12);border-color:rgba(255,107,138,.6);color:var(--pink)}
 
-        /* ===== S0 HERO ===== */
-        .bg0{
-            background:
-                radial-gradient(ellipse at 50% 80%,rgba(194,24,91,.2),transparent 55%),
-                radial-gradient(ellipse at 50% 10%,rgba(255,107,138,.08),transparent 45%);
-        }
-        .hero-heart{
-            animation:beat 1.2s ease-in-out infinite;
-            filter:drop-shadow(0 0 18px rgba(255,107,138,.4));
-            margin-bottom:14px;
-        }
-        .s0-title{
-            font-family:'Dancing Script',cursive;
-            font-size:clamp(28px,9vw,72px);
-            background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff6b8a,#ff9a9e);
-            background-size:300% 300%;
-            -webkit-background-clip:text;background-clip:text;
-            -webkit-text-fill-color:transparent;
-            animation:grad 4s ease infinite;line-height:1.3;
-        }
+        /* S0 */
+        .bg0{background:radial-gradient(ellipse at 50% 80%,rgba(194,24,91,.2),transparent 55%),radial-gradient(ellipse at 50% 10%,rgba(255,107,138,.08),transparent 45%)}
+        .hero-heart{animation:beat 1.2s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,107,138,.4));margin-bottom:14px}
+        .s0t{font-family:'Dancing Script',cursive;font-size:clamp(28px,9vw,72px);background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff6b8a,#ff9a9e);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad 4s ease infinite;line-height:1.3}
         .glow{-webkit-text-fill-color:var(--gold);text-shadow:0 0 12px rgba(255,215,0,.4);font-weight:700}
-        .s0-sub{
-            font-family:'Lora',serif;font-style:italic;
-            font-size:clamp(12px,3.5vw,18px);
-            color:#ff9eb5;margin-top:8px;
-        }
+        .s0s{font-family:'Lora',serif;font-style:italic;font-size:clamp(12px,3.5vw,18px);color:#ff9eb5;margin-top:8px}
 
-        /* ===== S1 LETTER ===== */
+        /* S1 letter */
         .bg1{background:linear-gradient(180deg,var(--bg),#2d1320,var(--bg))}
         .lbox{width:min(520px,100%)}
-        .letter{
-            background:linear-gradient(145deg,#fff9f0,#fff0e6,#ffecd2);
-            border-radius:14px;padding:36px 20px 42px;color:#4a2030;
-            position:relative;
-            box-shadow:0 12px 40px rgba(194,24,91,.2);
-            transform:rotate(-.3deg);
-        }
-        .lstamp{
-            position:absolute;top:-18px;left:50%;transform:translateX(-50%);
-            filter:drop-shadow(0 3px 8px rgba(255,107,138,.25));
-        }
-        .letter::after{
-            content:'';position:absolute;inset:0;
-            background:repeating-linear-gradient(transparent,transparent 27px,rgba(200,150,150,.08) 27px,rgba(200,150,150,.08) 28px);
-            border-radius:14px;pointer-events:none;
-        }
+        .letter{background:linear-gradient(145deg,#fff9f0,#fff0e6,#ffecd2);border-radius:14px;padding:36px 20px 42px;color:#4a2030;position:relative;box-shadow:0 12px 40px rgba(194,24,91,.2);transform:rotate(-.3deg)}
+        .lstamp{position:absolute;top:-18px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 3px 8px rgba(255,107,138,.25))}
+        .letter::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 27px,rgba(200,150,150,.08) 27px,rgba(200,150,150,.08) 28px);border-radius:14px;pointer-events:none}
         .letter .dt{font-family:'Lora',serif;font-style:italic;text-align:right;color:#b07080;font-size:11px;margin-bottom:12px}
         .letter h2{font-family:'Dancing Script',cursive;font-size:clamp(20px,6vw,30px);color:var(--rose);margin-bottom:12px}
         .letter p{font-family:'Lora',serif;font-size:13px;line-height:1.85;color:#5a3040;margin-bottom:10px}
-        .letter .sig{
-            font-family:'Dancing Script',cursive;font-size:clamp(18px,5vw,24px);
-            color:var(--rose);text-align:right;margin-top:18px;
-            display:flex;align-items:center;justify-content:flex-end;gap:6px;
-        }
-        .seal{
-            position:absolute;bottom:-12px;right:16px;
-            width:44px;height:44px;
-            background:radial-gradient(circle at 35% 35%,#e74c6f,#c2185b,#8e1245);
-            border-radius:50%;display:flex;align-items:center;justify-content:center;
-            box-shadow:0 3px 8px rgba(194,24,91,.35);
-        }
+        .letter .sig{font-family:'Dancing Script',cursive;font-size:clamp(18px,5vw,24px);color:var(--rose);text-align:right;margin-top:18px;display:flex;align-items:center;justify-content:flex-end;gap:6px}
+        .seal{position:absolute;bottom:-12px;right:16px;width:44px;height:44px;background:radial-gradient(circle at 35% 35%,#e74c6f,#c2185b,#8e1245);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(194,24,91,.35)}
 
-        /* ===== S2 REASONS ===== */
+        /* S2 reasons */
         .bg2{background:linear-gradient(180deg,var(--bg),#1f0f18,var(--bg))}
-        .stitle{
-            font-family:'Dancing Script',cursive;
-            font-size:clamp(24px,7vw,44px);
-            background:linear-gradient(135deg,var(--pink),var(--gold));
-            -webkit-background-clip:text;background-clip:text;
-            -webkit-text-fill-color:transparent;
-            margin-bottom:28px;
-        }
+        .stitle{font-family:'Dancing Script',cursive;font-size:clamp(24px,7vw,44px);background:linear-gradient(135deg,var(--pink),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:28px}
         .cards{display:grid;grid-template-columns:1fr;gap:12px;max-width:800px;margin:0 auto;width:100%}
-        .card{
-            background:linear-gradient(145deg,rgba(255,107,138,.06),rgba(194,24,91,.02));
-            border:1px solid rgba(255,107,138,.08);
-            border-radius:16px;padding:18px 14px;
-            display:flex;align-items:flex-start;gap:12px;text-align:left;
-        }
+        .card{background:linear-gradient(145deg,rgba(255,107,138,.06),rgba(194,24,91,.02));border:1px solid rgba(255,107,138,.08);border-radius:16px;padding:18px 14px;display:flex;align-items:flex-start;gap:12px;text-align:left}
         .card-icon{flex-shrink:0;margin-top:2px}
         .card h3{font-family:'Dancing Script',cursive;font-size:17px;color:var(--pink);margin-bottom:3px}
         .card p{font-family:'Lora',serif;color:#d4a0b0;font-size:12px;line-height:1.6}
 
-        /* ===== S3 TIMELINE ===== */
+        /* S3 timeline */
         .bg3{background:linear-gradient(180deg,var(--bg),#2a1525,var(--bg))}
         .tl{max-width:500px;margin:0 auto;position:relative;padding-left:26px;width:100%}
-        .tl::before{
-            content:'';position:absolute;left:6px;top:0;width:2px;height:100%;
-            background:linear-gradient(to bottom,transparent,var(--pink),var(--gold),var(--pink),transparent);
-        }
+        .tl::before{content:'';position:absolute;left:6px;top:0;width:2px;height:100%;background:linear-gradient(to bottom,transparent,var(--pink),var(--gold),var(--pink),transparent)}
         .tl-i{position:relative;margin-bottom:24px}
-        .tl-dot{
-            position:absolute;left:-22px;top:6px;width:12px;height:12px;
-            background:var(--pink);border-radius:50%;
-            box-shadow:0 0 10px rgba(255,107,138,.4);
-        }
-        .tl-box{
-            background:linear-gradient(145deg,rgba(255,107,138,.05),rgba(255,215,0,.02));
-            border:1px solid rgba(255,107,138,.06);
-            border-radius:12px;padding:14px 12px;text-align:left;
-        }
+        .tl-dot{position:absolute;left:-22px;top:6px;width:12px;height:12px;background:var(--pink);border-radius:50%;box-shadow:0 0 10px rgba(255,107,138,.4)}
+        .tl-box{background:linear-gradient(145deg,rgba(255,107,138,.05),rgba(255,215,0,.02));border:1px solid rgba(255,107,138,.06);border-radius:12px;padding:14px 12px;text-align:left}
         .tl-box h3{font-family:'Dancing Script',cursive;color:var(--pink);font-size:16px;margin:3px 0}
         .tl-box p{font-family:'Lora',serif;color:#c4909f;font-size:11px;line-height:1.6}
 
-        /* ===== S4 PROMISES ===== */
-        .bg4{
-            background:
-                radial-gradient(ellipse at 30% 50%,rgba(194,24,91,.08),transparent 50%),
-                radial-gradient(ellipse at 70% 50%,rgba(255,215,0,.04),transparent 50%),
-                linear-gradient(180deg,var(--bg),#1f1020,var(--bg));
-        }
+        /* S4 promises */
+        .bg4{background:radial-gradient(ellipse at 30% 50%,rgba(194,24,91,.08),transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(255,215,0,.04),transparent 50%),linear-gradient(180deg,var(--bg),#1f1020,var(--bg))}
         .prom-icon{animation:sway 6s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(255,107,138,.25));margin-bottom:14px}
         .prom-list{list-style:none;max-width:360px;width:100%;padding:0 4px;margin-top:16px}
-        .prom-list li{
-            font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:13px;
-            padding:9px 0;border-bottom:1px solid rgba(255,107,138,.06);
-            display:flex;align-items:center;gap:8px;
-        }
+        .prom-list li{font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:13px;padding:9px 0;border-bottom:1px solid rgba(255,107,138,.06);display:flex;align-items:center;gap:8px}
         .prom-heart{flex-shrink:0}
 
-        /* ===== S5 VALENTINE ===== */
+        /* S5 valentine */
         .bg5{background:linear-gradient(180deg,var(--bg),#2d1328,var(--bg))}
         .s5h{font-family:'Dancing Script',cursive;font-size:clamp(20px,6vw,36px);color:var(--pink);margin-bottom:24px}
-        .btn{
-            background:linear-gradient(135deg,var(--rose),var(--pink));
-            border:none;color:#fff;
-            font-family:'Dancing Script',cursive;font-size:clamp(17px,5vw,24px);
-            padding:16px 36px;border-radius:50px;
-            cursor:pointer;position:relative;overflow:hidden;
-            box-shadow:0 6px 22px rgba(194,24,91,.28);
-            -webkit-appearance:none;touch-action:manipulation;
-            display:inline-flex;align-items:center;gap:8px;
-            user-select:none;z-index:50;
-        }
+        .btn{background:linear-gradient(135deg,var(--rose),var(--pink));border:none;color:#fff;font-family:'Dancing Script',cursive;font-size:clamp(17px,5vw,24px);padding:16px 36px;border-radius:50px;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 6px 22px rgba(194,24,91,.28);-webkit-appearance:none;touch-action:manipulation;display:inline-flex;align-items:center;gap:8px;user-select:none;z-index:50}
         .btn:active{transform:scale(.93)}
-        .btn::after{
-            content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-            background:linear-gradient(transparent,rgba(255,255,255,.1),transparent);
-            transform:rotate(45deg);animation:shine 3s ease-in-out infinite;
-        }
+        .btn::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(transparent,rgba(255,255,255,.1),transparent);transform:rotate(45deg);animation:shine 3s ease-in-out infinite}
         @keyframes shine{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
-        .reply{
-            font-family:'Dancing Script',cursive;font-size:clamp(18px,5vw,28px);
-            color:var(--gold);margin-top:18px;min-height:36px;
-            text-shadow:0 0 14px rgba(255,215,0,.2);
-        }
-        .counter{
-            font-family:'Dancing Script',cursive;font-size:clamp(14px,4vw,24px);
-            color:var(--pink);margin-top:20px;padding:12px 18px;
-            border:1px solid rgba(255,107,138,.1);border-radius:12px;
-            background:rgba(255,107,138,.02);
-            display:inline-flex;align-items:center;gap:6px;
-        }
+        .reply{font-family:'Dancing Script',cursive;font-size:clamp(18px,5vw,28px);color:var(--gold);margin-top:18px;min-height:36px;text-shadow:0 0 14px rgba(255,215,0,.2)}
+        .counter{font-family:'Dancing Script',cursive;font-size:clamp(14px,4vw,24px);color:var(--pink);margin-top:20px;padding:12px 18px;border:1px solid rgba(255,107,138,.1);border-radius:12px;background:rgba(255,107,138,.02);display:inline-flex;align-items:center;gap:6px}
         .counter b{color:var(--gold);font-size:1.1em}
 
-        /* ===== S6 FINAL ===== */
-        .bg6{
-            background:
-                radial-gradient(ellipse at center,rgba(194,24,91,.14),transparent 55%),
-                var(--bg);
-        }
-        .final-heart{
-            animation:sway 8s ease-in-out infinite;margin-bottom:20px;
-            filter:drop-shadow(0 0 25px rgba(255,107,138,.3));
-        }
-        .s6h{
-            font-family:'Dancing Script',cursive;font-size:clamp(24px,8vw,60px);
-            background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff9a9e,#ffd700,#ff6b8a);
-            background-size:400% 400%;
-            -webkit-background-clip:text;background-clip:text;
-            -webkit-text-fill-color:transparent;
-            animation:grad 5s ease infinite;margin-bottom:12px;
-        }
-        .s6p{
-            font-family:'Lora',serif;font-style:italic;color:var(--soft);
-            font-size:clamp(12px,3.5vw,18px);max-width:440px;line-height:1.8;padding:0 6px;
-        }
-        .hrow{
-            margin-top:20px;display:flex;gap:6px;justify-content:center;
-            animation:beat 1.2s ease-in-out infinite;
-        }
+        /* S6 final */
+        .bg6{background:radial-gradient(ellipse at center,rgba(194,24,91,.14),transparent 55%),var(--bg)}
+        .final-heart{animation:sway 8s ease-in-out infinite;margin-bottom:20px;filter:drop-shadow(0 0 25px rgba(255,107,138,.3))}
+        .s6h{font-family:'Dancing Script',cursive;font-size:clamp(24px,8vw,60px);background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff9a9e,#ffd700,#ff6b8a);background-size:400% 400%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad 5s ease infinite;margin-bottom:12px}
+        .s6p{font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:clamp(12px,3.5vw,18px);max-width:440px;line-height:1.8;padding:0 6px}
+        .hrow{margin-top:20px;display:flex;gap:6px;justify-content:center;animation:beat 1.2s ease-in-out infinite}
 
         /* music */
-        .mu{
-            position:fixed;bottom:max(14px,env(safe-area-inset-bottom,14px));right:12px;
-            width:44px;height:44px;
-            background:linear-gradient(135deg,var(--rose),var(--pink));
-            border:none;border-radius:50%;cursor:pointer;z-index:1000;
-            box-shadow:0 3px 12px rgba(194,24,91,.25);
-            -webkit-appearance:none;touch-action:manipulation;
-            display:flex;align-items:center;justify-content:center;user-select:none;
-        }
+        .mu{position:fixed;bottom:max(14px,env(safe-area-inset-bottom,14px));right:12px;width:44px;height:44px;background:linear-gradient(135deg,var(--rose),var(--pink));border:none;border-radius:50%;cursor:pointer;z-index:1000;box-shadow:0 3px 12px rgba(194,24,91,.25);-webkit-appearance:none;touch-action:manipulation;display:flex;align-items:center;justify-content:center;user-select:none}
         .mu:active{transform:scale(.88)}
         .mu.on{animation:mp 1s ease-in-out infinite}
-        @keyframes mp{
-            0%,100%{box-shadow:0 3px 12px rgba(194,24,91,.25)}
-            50%{box-shadow:0 3px 18px rgba(194,24,91,.5),0 0 30px rgba(255,107,138,.12)}
-        }
+        @keyframes mp{0%,100%{box-shadow:0 3px 12px rgba(194,24,91,.25)}50%{box-shadow:0 3px 18px rgba(194,24,91,.5),0 0 30px rgba(255,107,138,.12)}}
         .ytp{position:fixed;bottom:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1}
 
         /* dots */
-        .dots{
-            position:fixed;right:10px;top:50%;transform:translateY(-50%);
-            display:flex;flex-direction:column;gap:8px;z-index:100;
-        }
-        .dot{
-            width:6px;height:6px;border-radius:50%;
-            background:rgba(255,107,138,.2);transition:all .4s;cursor:pointer;
-        }
-        .dot.on{
-            background:var(--pink);box-shadow:0 0 8px rgba(255,107,138,.4);
-            height:18px;border-radius:3px;
-        }
+        .dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,107,138,.2);transition:all .4s;cursor:pointer}
+        .dot.on{background:var(--pink);box-shadow:0 0 8px rgba(255,107,138,.4);height:18px;border-radius:3px}
 
-        @media(min-width:520px){
-            .cards{grid-template-columns:repeat(2,1fr);gap:16px}
-            .letter{padding:40px 30px 46px}
-        }
-        @media(min-width:860px){
-            .cards{grid-template-columns:repeat(3,1fr)}
-        }
+        @media(min-width:520px){.cards{grid-template-columns:repeat(2,1fr);gap:16px}.letter{padding:40px 30px 46px}}
+        @media(min-width:860px){.cards{grid-template-columns:repeat(3,1fr)}}
     </style>
 </head>
 <body>
@@ -350,312 +173,198 @@
 <div class="boom" id="boom"></div>
 <div class="dots" id="dots"></div>
 
-<!-- S0 HERO -->
-<div class="slide active" id="s0">
-    <div class="slide-in bg0">
-        <div class="hero-heart"><svg width="80" height="80" style="color:var(--pink)"><use href="#h"/></svg></div>
-        <h1 class="s0-title">Happy Valentine's Day,<br><span class="glow">Ansam</span></h1>
-        <p class="s0-sub">every love story is beautiful, but ours is my favorite</p>
-        <button class="cbtn" data-go="1">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
-    </div>
-</div>
+<!-- S0 -->
+<div class="slide active" id="s0"><div class="slide-in bg0">
+    <div class="hero-heart"><svg width="80" height="80" style="color:var(--pink)"><use href="#h"/></svg></div>
+    <h1 class="s0t">Happy Valentine's Day,<br><span class="glow">Ansam</span></h1>
+    <p class="s0s">every love story is beautiful, but ours is my favorite</p>
+    <button class="cbtn" data-go="1">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
 
-<!-- S1 LETTER -->
-<div class="slide" id="s1">
-    <div class="slide-in bg1">
-        <div class="lbox">
-            <div class="letter">
-                <div class="lstamp"><svg width="36" height="28" style="color:var(--pink)"><use href="#env"/></svg></div>
-                <div class="dt">February 14, 2025</div>
-                <h2>my dearest Ansam,</h2>
-                <p>from the very first moment, you painted my world with colors i never knew existed. your smile is my sunrise, your laughter is the melody my heart dances to every single day.</p>
-                <p>you are the reason i believe in magic — the kind that turns ordinary moments into something extraordinary, the kind that makes a simple glance feel like a forever memory.</p>
-                <p>on this valentine's day, i just want you to know — my love for you grows deeper with every heartbeat. you are my everything, my always, my forever.</p>
-                <div class="sig">forever & always yours <svg width="18" height="18" style="color:var(--rose)"><use href="#h"/></svg></div>
-                <div class="seal"><svg width="22" height="22" style="color:#fce4ec"><use href="#h"/></svg></div>
-            </div>
-        </div>
-        <button class="cbtn" data-go="2">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
-    </div>
-</div>
+<!-- S1 -->
+<div class="slide" id="s1"><div class="slide-in bg1">
+    <div class="lbox"><div class="letter">
+        <div class="lstamp"><svg width="36" height="28" style="color:var(--pink)"><use href="#env"/></svg></div>
+        <div class="dt">February 14, 2025</div>
+        <h2>my dearest Ansam,</h2>
+        <p>from the very first moment, you painted my world with colors i never knew existed. your smile is my sunrise, your laughter is the melody my heart dances to every single day.</p>
+        <p>you are the reason i believe in magic — the kind that turns ordinary moments into something extraordinary, the kind that makes a simple glance feel like a forever memory.</p>
+        <p>on this valentine's day, i just want you to know — my love for you grows deeper with every heartbeat. you are my everything, my always, my forever.</p>
+        <div class="sig">forever & always yours <svg width="18" height="18" style="color:var(--rose)"><use href="#h"/></svg></div>
+        <div class="seal"><svg width="22" height="22" style="color:#fce4ec"><use href="#h"/></svg></div>
+    </div></div>
+    <button class="cbtn" data-go="2">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
 
-<!-- S2 REASONS -->
-<div class="slide" id="s2">
-    <div class="slide-in bg2">
-        <h2 class="stitle">why i love you</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:var(--gold)"><use href="#star"/></svg></div>
-                <div><h3>your beautiful soul</h3><p>your kindness lights up every room. you make the world better just by existing in it.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:var(--pink)"><use href="#smile"/></svg></div>
-                <div><h3>that smile</h3><p>it turns my worst days into the best ones. genuinely the most beautiful thing i've ever seen.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:#a0d8ef"><use href="#dia"/></svg></div>
-                <div><h3>your strength</h3><p>you inspire me every day. the way you handle everything with grace — it's incredible.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:#ffb7c5"><use href="#emb"/></svg></div>
-                <div><h3>your warmth</h3><p>being with you feels like coming home. you are my safe place, my peace.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:var(--rose)"><use href="#h"/></svg></div>
-                <div><h3>the way you love</h3><p>it's extraordinary. you make me feel like the luckiest person alive.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><svg width="28" height="28" style="color:var(--gold)"><use href="#spark"/></svg></div>
-                <div><h3>simply everything</h3><p>your voice, your eyes, your laugh — every detail makes me fall deeper.</p></div>
-            </div>
-        </div>
-        <button class="cbtn" data-go="3">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+<!-- S2 -->
+<div class="slide" id="s2"><div class="slide-in bg2">
+    <h2 class="stitle">why i love you</h2>
+    <div class="cards">
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:var(--gold)"><use href="#star"/></svg></div><div><h3>your beautiful soul</h3><p>your kindness lights up every room. you make the world better just by existing in it.</p></div></div>
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:var(--pink)"><use href="#smile"/></svg></div><div><h3>that smile</h3><p>it turns my worst days into the best ones. genuinely the most beautiful thing i've ever seen.</p></div></div>
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:#a0d8ef"><use href="#dia"/></svg></div><div><h3>your strength</h3><p>you inspire me every day. the way you handle everything with grace — it's incredible.</p></div></div>
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:#ffb7c5"><use href="#emb"/></svg></div><div><h3>your warmth</h3><p>being with you feels like coming home. you are my safe place, my peace.</p></div></div>
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:var(--rose)"><use href="#h"/></svg></div><div><h3>the way you love</h3><p>it's extraordinary. you make me feel like the luckiest person alive.</p></div></div>
+        <div class="card"><div class="card-icon"><svg width="28" height="28" style="color:var(--gold)"><use href="#spark"/></svg></div><div><h3>simply everything</h3><p>your voice, your eyes, your laugh — every detail makes me fall deeper.</p></div></div>
     </div>
-</div>
+    <button class="cbtn" data-go="3">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
 
-<!-- S3 TIMELINE -->
-<div class="slide" id="s3">
-    <div class="slide-in bg3">
-        <h2 class="stitle">our story so far</h2>
-        <div class="tl">
-            <div class="tl-i"><div class="tl-dot"></div><div class="tl-box">
-                <svg width="22" height="22" style="color:var(--pink)"><use href="#rose"/></svg>
-                <h3>the day we met</h3><p>the universe brought us together. and everything changed. i just knew.</p>
-            </div></div>
-            <div class="tl-i"><div class="tl-dot"></div><div class="tl-box">
-                <svg width="22" height="22" style="color:var(--soft)"><use href="#chat"/></svg>
-                <h3>our first real talk</h3><p>hours felt like minutes. i could talk to you forever.</p>
-            </div></div>
-            <div class="tl-i"><div class="tl-dot"></div><div class="tl-box">
-                <svg width="22" height="22" style="color:#c5a0e0"><use href="#bfly"/></svg>
-                <h3>butterflies</h3><p>that moment i realized this was more than anything. you were the one.</p>
-            </div></div>
-            <div class="tl-i"><div class="tl-dot"></div><div class="tl-box">
-                <svg width="22" height="22" style="color:var(--pink)"><use href="#h"/></svg>
-                <h3>falling for you</h3><p>it wasn't a fall. it was flying. higher every day, deeper every moment.</p>
-            </div></div>
-            <div class="tl-i"><div class="tl-dot"></div><div class="tl-box">
-                <svg width="22" height="22" style="color:var(--gold)"><use href="#inf"/></svg>
-                <h3>now & forever</h3><p>here we are. and honestly? this is just the beginning.</p>
-            </div></div>
-        </div>
-        <button class="cbtn" data-go="4">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+<!-- S3 -->
+<div class="slide" id="s3"><div class="slide-in bg3">
+    <h2 class="stitle">our story so far</h2>
+    <div class="tl">
+        <div class="tl-i"><div class="tl-dot"></div><div class="tl-box"><svg width="22" height="22" style="color:var(--pink)"><use href="#rose"/></svg><h3>the day we met</h3><p>the universe brought us together. and everything changed. i just knew.</p></div></div>
+        <div class="tl-i"><div class="tl-dot"></div><div class="tl-box"><svg width="22" height="22" style="color:var(--soft)"><use href="#chat"/></svg><h3>our first real talk</h3><p>hours felt like minutes. i could talk to you forever.</p></div></div>
+        <div class="tl-i"><div class="tl-dot"></div><div class="tl-box"><svg width="22" height="22" style="color:#c5a0e0"><use href="#bfly"/></svg><h3>butterflies</h3><p>that moment i realized this was more than anything. you were the one.</p></div></div>
+        <div class="tl-i"><div class="tl-dot"></div><div class="tl-box"><svg width="22" height="22" style="color:var(--pink)"><use href="#h"/></svg><h3>falling for you</h3><p>it wasn't a fall. it was flying. higher every day, deeper every moment.</p></div></div>
+        <div class="tl-i"><div class="tl-dot"></div><div class="tl-box"><svg width="22" height="22" style="color:var(--gold)"><use href="#inf"/></svg><h3>now & forever</h3><p>here we are. and honestly? this is just the beginning.</p></div></div>
     </div>
-</div>
+    <button class="cbtn" data-go="4">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
 
-<!-- S4 PROMISES -->
-<div class="slide" id="s4">
-    <div class="slide-in bg4">
-        <div class="prom-icon"><svg width="56" height="56" style="color:var(--pink)"><use href="#h"/></svg></div>
-        <h2 class="stitle">my promises to you</h2>
-        <ul class="prom-list">
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to love you more with every passing day</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to be your strength when you feel weak</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to make you laugh when you want to cry</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to hold your hand through every storm</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to choose you, every single day</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to build something beautiful with you</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to never let you forget how amazing you are</li>
-            <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to be yours — completely, endlessly, always</li>
-        </ul>
-        <button class="cbtn" data-go="5">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+<!-- S4 -->
+<div class="slide" id="s4"><div class="slide-in bg4">
+    <div class="prom-icon"><svg width="56" height="56" style="color:var(--pink)"><use href="#h"/></svg></div>
+    <h2 class="stitle">my promises to you</h2>
+    <ul class="prom-list">
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to love you more with every passing day</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to be your strength when you feel weak</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to make you laugh when you want to cry</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to hold your hand through every storm</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to choose you, every single day</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to build something beautiful with you</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to never let you forget how amazing you are</li>
+        <li><svg class="prom-heart" width="14" height="14" style="color:var(--pink)"><use href="#sh"/></svg> to be yours — completely, endlessly, always</li>
+    </ul>
+    <button class="cbtn" data-go="5">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
+
+<!-- S5 -->
+<div class="slide" id="s5"><div class="slide-in bg5">
+    <h2 class="s5h">i have a question...</h2>
+    <button class="btn" id="vbtn">will you be my valentine? <svg width="20" height="20" style="color:#fff"><use href="#h"/></svg></button>
+    <div class="reply" id="reply"></div>
+    <div class="counter"><svg width="16" height="16" style="color:var(--pink)"><use href="#h"/></svg> my love for you: <b id="cnt">&infin;</b> and counting...</div>
+    <button class="cbtn" data-go="6" style="margin-top:20px">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
+</div></div>
+
+<!-- S6 -->
+<div class="slide" id="s6"><div class="slide-in bg6">
+    <div class="final-heart"><svg width="120" height="120" style="color:var(--pink)"><use href="#h"/><text x="50%" y="58%" text-anchor="middle" fill="white" font-family="Dancing Script,cursive" font-size="24" dominant-baseline="middle">A + A</text></svg></div>
+    <h2 class="s6h">i love you, Ansam</h2>
+    <p class="s6p">you are the best thing that ever happened to me. today, tomorrow, and every day after — my heart is yours.</p>
+    <div class="hrow">
+        <svg width="24" height="24" style="color:#ff6b8a"><use href="#h"/></svg>
+        <svg width="24" height="24" style="color:#ff9eb5"><use href="#h"/></svg>
+        <svg width="24" height="24" style="color:#c2185b"><use href="#h"/></svg>
+        <svg width="24" height="24" style="color:#ff4081"><use href="#h"/></svg>
+        <svg width="24" height="24" style="color:#e91e63"><use href="#h"/></svg>
     </div>
-</div>
+</div></div>
 
-<!-- S5 VALENTINE -->
-<div class="slide" id="s5">
-    <div class="slide-in bg5">
-        <h2 class="s5h">i have a question...</h2>
-        <button class="btn" id="vbtn">will you be my valentine? <svg width="20" height="20" style="color:#fff"><use href="#h"/></svg></button>
-        <div class="reply" id="reply"></div>
-        <div class="counter">
-            <svg width="16" height="16" style="color:var(--pink)"><use href="#h"/></svg>
-            my love for you: <b id="cnt">&infin;</b> and counting...
-        </div>
-        <button class="cbtn" data-go="6" style="margin-top:20px">continue <svg width="16" height="16" style="color:currentColor"><use href="#arr"/></svg></button>
-    </div>
-</div>
-
-<!-- S6 FINAL -->
-<div class="slide" id="s6">
-    <div class="slide-in bg6">
-        <div class="final-heart">
-            <svg width="120" height="120" style="color:var(--pink)">
-                <use href="#h"/>
-                <text x="50%" y="58%" text-anchor="middle" fill="white" font-family="Dancing Script,cursive" font-size="24" dominant-baseline="middle">A + A</text>
-            </svg>
-        </div>
-        <h2 class="s6h">i love you, Ansam</h2>
-        <p class="s6p">you are the best thing that ever happened to me. today, tomorrow, and every day after — my heart is yours.</p>
-        <div class="hrow">
-            <svg width="24" height="24" style="color:#ff6b8a"><use href="#h"/></svg>
-            <svg width="24" height="24" style="color:#ff9eb5"><use href="#h"/></svg>
-            <svg width="24" height="24" style="color:#c2185b"><use href="#h"/></svg>
-            <svg width="24" height="24" style="color:#ff4081"><use href="#h"/></svg>
-            <svg width="24" height="24" style="color:#e91e63"><use href="#h"/></svg>
-        </div>
-    </div>
-</div>
-
-<button class="mu" id="mu" aria-label="music"><svg width="20" height="20" style="color:#fff"><use href="#note"/></svg></button>
+<button class="mu" id="mu"><svg width="20" height="20" style="color:#fff"><use href="#note"/></svg></button>
 <iframe id="yt" class="ytp" src="" allow="autoplay;encrypted-media" allowfullscreen></iframe>
 
 <script>
 (function(){
-    // ===== YOUTUBE VIDEO ID =====
     var YT_ID = 'bo_efYhYU2A';
-
     var mob = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    var allSlides = document.querySelectorAll('.slide');
-    var total = allSlides.length;
+    var slides = document.querySelectorAll('.slide');
+    var total = slides.length;
     var cur = 0;
     var busy = false;
 
     // dots
     var dotsBox = document.getElementById('dots');
-    var i;
-    for(i=0;i<total;i++){
+    for(var i=0;i<total;i++){
         var dd = document.createElement('div');
-        dd.className = 'dot' + (i===0?' on':'');
+        dd.className = i===0?'dot on':'dot';
         dd.setAttribute('data-dot',i);
         dotsBox.appendChild(dd);
     }
     var allDots = dotsBox.querySelectorAll('.dot');
-
     function setDots(){
         for(var j=0;j<allDots.length;j++){
-            if(j===cur) allDots[j].className='dot on';
-            else allDots[j].className='dot';
+            allDots[j].className = j===cur?'dot on':'dot';
         }
     }
 
-    // ===== GO TO SLIDE =====
+    /*
+        SIMPLE SLIDE SWITCH
+        No inline styles. Just toggle .active class.
+        CSS transition handles the fade.
+    */
     function go(n){
-        if(busy||n===cur||n<0||n>=total) return;
-        busy=true;
-
-        var oldSlide = allSlides[cur];
-        var newSlide = allSlides[n];
-        var forward = n > cur;
-
-        // hide old
-        oldSlide.style.transition = 'opacity .6s ease, transform .6s ease';
-        oldSlide.style.opacity = '0';
-        oldSlide.style.transform = forward ? 'translateY(-30px)' : 'translateY(30px)';
-
-        // prep new off-screen
-        newSlide.style.transition = 'none';
-        newSlide.style.opacity = '0';
-        newSlide.style.transform = forward ? 'translateY(30px)' : 'translateY(-30px)';
-        newSlide.style.visibility = 'visible';
-        newSlide.style.pointerEvents = 'auto';
-        newSlide.classList.add('active');
-
-        // force layout
-        newSlide.offsetHeight;
-
-        // animate new in
-        newSlide.style.transition = 'opacity .6s ease, transform .6s ease';
-        newSlide.style.opacity = '1';
-        newSlide.style.transform = 'translateY(0)';
-
-        // scroll new slide to top
-        newSlide.scrollTop = 0;
-
+        if(busy || n===cur || n<0 || n>=total) return;
+        busy = true;
+        slides[cur].classList.remove('active');
+        slides[n].classList.add('active');
+        slides[n].scrollTop = 0;
         cur = n;
         setDots();
-
-        setTimeout(function(){
-            // cleanup old
-            oldSlide.classList.remove('active');
-            oldSlide.style.transition = '';
-            oldSlide.style.opacity = '';
-            oldSlide.style.transform = '';
-            oldSlide.style.visibility = '';
-            oldSlide.style.pointerEvents = '';
-
-            // cleanup new
-            newSlide.style.transition = '';
-            newSlide.style.opacity = '';
-            newSlide.style.transform = '';
-            newSlide.style.visibility = '';
-            newSlide.style.pointerEvents = '';
-
-            busy = false;
-        }, 700);
+        setTimeout(function(){ busy = false; }, 600);
     }
 
-    // ===== CLICK HANDLER =====
+    // clicks
     document.addEventListener('click', function(e){
-        // continue buttons
         var goBtn = e.target.closest('[data-go]');
         if(goBtn){
-            e.stopPropagation();
             go(parseInt(goBtn.getAttribute('data-go')));
             return;
         }
-        // dot clicks
         var dotBtn = e.target.closest('[data-dot]');
         if(dotBtn){
             go(parseInt(dotBtn.getAttribute('data-dot')));
-            return;
         }
     });
 
-    // ===== SWIPE =====
+    // swipe
     var sy=0, sx=0;
-    document.addEventListener('touchstart', function(e){
-        sy = e.touches[0].clientY;
-        sx = e.touches[0].clientX;
-    }, {passive:true});
-
-    document.addEventListener('touchend', function(e){
-        var dy = sy - e.changedTouches[0].clientY;
-        var dx = sx - e.changedTouches[0].clientX;
-        // only if clearly vertical and long enough
-        if(Math.abs(dy) > 80 && Math.abs(dy) > Math.abs(dx) * 1.5){
-            if(dy > 0) go(cur+1);
-            else go(cur-1);
+    document.addEventListener('touchstart',function(e){
+        sy=e.touches[0].clientY; sx=e.touches[0].clientX;
+    },{passive:true});
+    document.addEventListener('touchend',function(e){
+        var dy=sy-e.changedTouches[0].clientY;
+        var dx=sx-e.changedTouches[0].clientX;
+        if(Math.abs(dy)>80 && Math.abs(dy)>Math.abs(dx)*1.5){
+            if(dy>0) go(cur+1); else go(cur-1);
         }
-    }, {passive:true});
+    },{passive:true});
 
     // keyboard
-    document.addEventListener('keydown', function(e){
+    document.addEventListener('keydown',function(e){
         if(e.key==='ArrowDown'||e.key===' '||e.key==='Enter'){e.preventDefault();go(cur+1)}
         if(e.key==='ArrowUp'){e.preventDefault();go(cur-1)}
     });
 
     // wheel
     var wOk=true;
-    document.addEventListener('wheel', function(e){
-        if(!wOk)return; wOk=false;
-        if(e.deltaY>30)go(cur+1);
-        else if(e.deltaY<-30)go(cur-1);
+    document.addEventListener('wheel',function(e){
+        if(!wOk)return;wOk=false;
+        if(e.deltaY>30)go(cur+1);else if(e.deltaY<-30)go(cur-1);
         setTimeout(function(){wOk=true},1200);
     },{passive:true});
 
-    // ===== STARS =====
+    // stars
     var starsEl=document.getElementById('stars');
-    for(i=0;i<(mob?60:120);i++){
-        var s=document.createElement('div');
-        s.className='star';
-        s.style.left=Math.random()*100+'%';
-        s.style.top=Math.random()*100+'%';
+    for(var i=0;i<(mob?60:120);i++){
+        var s=document.createElement('div');s.className='star';
+        s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
         s.style.setProperty('--d',(2+Math.random()*4)+'s');
         s.style.setProperty('--del',Math.random()*4+'s');
         s.style.setProperty('--o',.3+Math.random()*.5);
-        var sz=(1+Math.random()*1.5)+'px';
-        s.style.width=sz;s.style.height=sz;
+        var sz=(1+Math.random()*1.5)+'px';s.style.width=sz;s.style.height=sz;
         starsEl.appendChild(s);
     }
 
-    // ===== CANVAS =====
+    // canvas
     var cv=document.getElementById('cv'),cx=cv.getContext('2d');
     function rz(){cv.width=innerWidth;cv.height=innerHeight}
     rz();addEventListener('resize',rz);
     var colors=['#ff6b8a','#ff9eb5','#c2185b','#ff4081','#e91e63','#ffd700'];
-    function H(){this.r()}
-    H.prototype.r=function(){
+    function HH(){this.r()}
+    HH.prototype.r=function(){
         this.x=Math.random()*cv.width;this.y=cv.height+10;
         this.sz=4+Math.random()*10;this.vy=.12+Math.random()*.5;
         this.vx=(Math.random()-.5)*.2;this.op=.04+Math.random()*.18;
@@ -663,7 +372,7 @@
         this.w=Math.random()*Math.PI*2;this.wv=.005+Math.random()*.01;
         this.c=colors[Math.random()*colors.length|0];
     };
-    H.prototype.d=function(){
+    HH.prototype.d=function(){
         cx.save();cx.translate(this.x,this.y);cx.rotate(this.rot);
         cx.globalAlpha=this.op;cx.fillStyle=this.c;
         var s=this.sz;cx.beginPath();cx.moveTo(0,s*.3);
@@ -671,13 +380,13 @@
         cx.bezierCurveTo(s,s*.1,s*.5,-s*.3,0,s*.3);
         cx.fill();cx.restore();
     };
-    H.prototype.u=function(){
+    HH.prototype.u=function(){
         this.y-=this.vy;this.w+=this.wv;
         this.x+=Math.sin(this.w)*.3+this.vx;
         this.rot+=this.rv;if(this.y<-20)this.r();
     };
-    var hs=[];for(i=0;i<(mob?8:18);i++)hs.push(new H);
-    (function lp(){cx.clearRect(0,0,cv.width,cv.height);for(i=0;i<hs.length;i++){hs[i].u();hs[i].d()}requestAnimationFrame(lp)})();
+    var hs=[];for(var i=0;i<(mob?8:18);i++)hs.push(new HH);
+    (function lp(){cx.clearRect(0,0,cv.width,cv.height);for(var k=0;k<hs.length;k++){hs[k].u();hs[k].d()}requestAnimationFrame(lp)})();
 
     // petals
     var pc=['#ff6b8a','#ff9eb5','#c2185b','#ffb7c5','#e8899e'];
@@ -703,13 +412,12 @@
         setTimeout(function(){el.remove()},700);
     },{passive:true});
 
-    // explosion
+    // boom
     function boom(x,y){
         var box=document.getElementById('boom'),n=mob?12:24;
         for(var j=0;j<n;j++){
             var el=document.createElement('div');
-            var c=colors[Math.random()*colors.length|0];
-            var sz=10+Math.random()*16;
+            var c=colors[Math.random()*colors.length|0],sz=10+Math.random()*16;
             el.innerHTML='<svg width="'+sz+'" height="'+sz+'" style="color:'+c+'"><use href="#h"/></svg>';
             el.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;pointer-events:none;z-index:9999;transition:all 1s cubic-bezier(.25,.46,.45,.94);opacity:1;';
             box.appendChild(el);
@@ -724,29 +432,19 @@
         }
     }
 
-    // valentine button
-    var vbtn=document.getElementById('vbtn');
-    var reply=document.getElementById('reply');
-    var ci=0;
-    var msgs=[
-        "yesss?! tap again...","i knew it!!","you make me the happiest",
-        "i love you SO much","forever & always","my heart is completely yours",
-        "Ansam + me = infinity","you are my whole world",
-        "i'd choose you a thousand times over","...okay one more tap",
-        "you're still here? i love you even more now",
-        "seriously, never stop tapping","infinite taps = infinite love"
-    ];
+    // valentine btn
+    var vbtn=document.getElementById('vbtn'),reply=document.getElementById('reply'),ci=0;
+    var msgs=["yesss?! tap again...","i knew it!!","you make me the happiest","i love you SO much","forever & always","my heart is completely yours","Ansam + me = infinity","you are my whole world","i'd choose you a thousand times over","...okay one more tap","you're still here? i love you even more now","seriously, never stop tapping","infinite taps = infinite love"];
     vbtn.addEventListener('click',function(e){
         e.stopPropagation();
         var r=this.getBoundingClientRect();
         boom(r.left+r.width/2,r.top+r.height/2);
-        reply.style.opacity='0';reply.style.transform='translateY(10px)';
+        reply.style.opacity='0';
         var self=this;
         setTimeout(function(){
             reply.textContent=msgs[ci%msgs.length];
-            reply.style.transition='opacity .5s,transform .5s';
-            reply.style.opacity='1';reply.style.transform='translateY(0)';
-        },150);
+            reply.style.opacity='1';
+        },200);
         ci++;
         if(ci===1)self.innerHTML='tap for more love <svg width="18" height="18" style="color:#fff"><use href="#h"/></svg>';
         else if(ci===5)self.innerHTML='keep going... <svg width="18" height="18" style="color:#fff"><use href="#h"/></svg>';
