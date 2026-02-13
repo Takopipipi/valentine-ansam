@@ -223,6 +223,7 @@
     </div>
 </div></div>
 
+<!-- Hidden YouTube player -->
 <div id="yt" class="ytp"></div>
 
 <script>
@@ -332,10 +333,11 @@
     var lc=999999;
     setInterval(function(){lc+=(Math.random()*10|0)+1;document.getElementById('cnt').textContent=lc.toLocaleString()},100);
 
-    // ===== MUSIC: YouTube IFrame API (always playing, no control button) =====
+    // ===== MUSIC — always plays, no button, no way to stop =====
     var player=null;
-    var unmuted=false;
+    var musicStarted=false;
 
+    // Load YouTube API
     var tag=document.createElement('script');
     tag.src='https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
@@ -360,7 +362,8 @@
                     e.target.playVideo();
                 },
                 onStateChange:function(e){
-                    if(e.data===YT.PlayerState.ENDED){
+                    // if it ever stops, restart it
+                    if(e.data===YT.PlayerState.ENDED||e.data===YT.PlayerState.PAUSED){
                         player.playVideo();
                     }
                 }
@@ -368,19 +371,40 @@
         });
     };
 
-    function doUnmute(){
-        if(unmuted||!player)return;
-        unmuted=true;
+    // Unmute on FIRST user interaction (browser requirement)
+    function startMusic(){
+        if(musicStarted||!player)return;
+        musicStarted=true;
         try{
             player.unMute();
             player.setVolume(100);
             player.playVideo();
         }catch(e){}
-        document.removeEventListener('touchstart',doUnmute);
-        document.removeEventListener('click',doUnmute);
+        document.removeEventListener('touchstart',startMusic,true);
+        document.removeEventListener('touchend',startMusic,true);
+        document.removeEventListener('click',startMusic,true);
+        document.removeEventListener('keydown',startMusic,true);
     }
-    document.addEventListener('touchstart',doUnmute,{passive:true});
-    document.addEventListener('click',doUnmute);
+    // Listen on capture phase so it fires before anything else
+    document.addEventListener('touchstart',startMusic,true);
+    document.addEventListener('touchend',startMusic,true);
+    document.addEventListener('click',startMusic,true);
+    document.addEventListener('keydown',startMusic,true);
+
+    // Safety net: keep trying every 2s until music is actually playing
+    var retryInt=setInterval(function(){
+        if(!player)return;
+        try{
+            var state=player.getPlayerState();
+            if(state===YT.PlayerState.PAUSED||state===YT.PlayerState.ENDED||state===-1){
+                player.playVideo();
+            }
+            if(musicStarted){
+                player.unMute();
+                player.setVolume(100);
+            }
+        }catch(e){}
+    },2000);
 })();
 </script>
 </body>
