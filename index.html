@@ -237,7 +237,7 @@
 </div></div>
 
 <button class="mu" id="mu"><svg width="20" height="20" style="color:#fff"><use href="#note"/></svg></button>
-<iframe id="yt" class="ytp" src="" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+<div id="yt" class="ytp"></div>
 
 <script>
 (function(){
@@ -247,7 +247,6 @@
     var total=slides.length;
     var cur=0,busy=false;
 
-    // dots
     var dotsBox=document.getElementById('dots');
     for(var i=0;i<total;i++){var dd=document.createElement('div');dd.className=i===0?'dot on':'dot';dd.setAttribute('data-dot',i);dotsBox.appendChild(dd)}
     var allDots=dotsBox.querySelectorAll('.dot');
@@ -349,46 +348,77 @@
     var lc=999999;
     setInterval(function(){lc+=(Math.random()*10|0)+1;document.getElementById('cnt').textContent=lc.toLocaleString()},100);
 
-    // ===== MUSIC: autoplay on first interaction =====
+    // ===== MUSIC: YouTube IFrame API =====
     var muBtn=document.getElementById('mu');
-    var yt=document.getElementById('yt');
+    var player=null;
     var mOn=false;
+    var unmuted=false;
 
-    function startMusic(){
-        if(mOn) return;
-        yt.src='https://www.youtube.com/embed/'+YT_ID+'?autoplay=1&loop=1&playlist='+YT_ID+'&controls=0&showinfo=0&rel=0';
-        mOn=true;
-        muBtn.classList.add('on');
+    // load YouTube API immediately
+    var tag=document.createElement('script');
+    tag.src='https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+
+    // called automatically by YouTube API when ready
+    window.onYouTubeIframeAPIReady=function(){
+        player=new YT.Player('yt',{
+            width:'1',
+            height:'1',
+            videoId:YT_ID,
+            playerVars:{
+                autoplay:1,
+                loop:1,
+                playlist:YT_ID,
+                controls:0,
+                showinfo:0,
+                rel:0,
+                playsinline:1,
+                mute:1
+            },
+            events:{
+                onReady:function(e){
+                    // start playing muted immediately (browsers allow this)
+                    e.target.playVideo();
+                    muBtn.classList.add('on');
+                    mOn=true;
+                }
+            }
+        });
+    };
+
+    // unmute on first user interaction — instant because audio already loaded
+    function unmute(){
+        if(unmuted||!player)return;
+        unmuted=true;
+        try{
+            player.unMute();
+            player.setVolume(100);
+            player.playVideo();
+        }catch(e){}
+        document.removeEventListener('touchstart',unmute);
+        document.removeEventListener('click',unmute);
     }
+    document.addEventListener('touchstart',unmute,{passive:true});
+    document.addEventListener('click',unmute);
 
-    function stopMusic(){
-        yt.src='';
-        mOn=false;
-        muBtn.classList.remove('on');
-    }
-
-    // try autoplay immediately
-    startMusic();
-
-    // on mobile: browsers block autoplay until user interacts
-    // so start music on first touch/click if not already playing
-    var firstInteraction=true;
-    function onFirstInteraction(){
-        if(!firstInteraction) return;
-        firstInteraction=false;
-        if(!mOn) startMusic();
-        document.removeEventListener('touchstart',onFirstInteraction);
-        document.removeEventListener('click',onFirstInteraction);
-    }
-    document.addEventListener('touchstart',onFirstInteraction,{passive:true});
-    document.addEventListener('click',onFirstInteraction);
-
-    // toggle button still works
+    // toggle button
     muBtn.addEventListener('click',function(e){
         e.stopPropagation();
-        firstInteraction=false;
-        if(mOn) stopMusic();
-        else startMusic();
+        if(!player)return;
+        try{
+            if(mOn){
+                player.pauseVideo();
+                mOn=false;
+                muBtn.classList.remove('on');
+            }else{
+                player.unMute();
+                player.setVolume(100);
+                player.playVideo();
+                mOn=true;
+                muBtn.classList.add('on');
+                unmuted=true;
+            }
+        }catch(e){}
     });
 })();
 </script>
