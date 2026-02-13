@@ -78,7 +78,7 @@
         .s6h{font-family:'Dancing Script',cursive;font-size:clamp(24px,8vw,60px);background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff9a9e,#ffd700,#ff6b8a);background-size:400% 400%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad 5s ease infinite;margin-bottom:12px}
         .s6p{font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:clamp(12px,3.5vw,18px);max-width:440px;line-height:1.8;padding:0 6px}
         .hrow{margin-top:20px;display:flex;gap:6px;justify-content:center;animation:beat 1.2s ease-in-out infinite}
-        .ytp{position:fixed;bottom:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1}
+        .yt-wrap{position:fixed;left:-300px;top:-300px;width:280px;height:158px;pointer-events:none;z-index:-1;overflow:hidden}
         .dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
         .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,107,138,.2);transition:all .4s;cursor:pointer}
         .dot.on{background:var(--pink);box-shadow:0 0 8px rgba(255,107,138,.4);height:18px;border-radius:3px}
@@ -223,8 +223,8 @@
     </div>
 </div></div>
 
-<!-- Hidden YouTube player -->
-<div id="yt" class="ytp"></div>
+<!-- YouTube player: real size but off-screen so mobile doesn't throttle it -->
+<div class="yt-wrap"><div id="yt"></div></div>
 
 <script>
 (function(){
@@ -333,19 +333,19 @@
     var lc=999999;
     setInterval(function(){lc+=(Math.random()*10|0)+1;document.getElementById('cnt').textContent=lc.toLocaleString()},100);
 
-    // ===== MUSIC — always plays, no button, no way to stop =====
+    // ===== MUSIC =====
     var player=null;
     var musicStarted=false;
+    var ytReady=false;
 
-    // Load YouTube API
     var tag=document.createElement('script');
     tag.src='https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
 
     window.onYouTubeIframeAPIReady=function(){
         player=new YT.Player('yt',{
-            width:'1',
-            height:'1',
+            width:'280',
+            height:'158',
             videoId:YT_ID,
             playerVars:{
                 autoplay:1,
@@ -355,56 +355,80 @@
                 showinfo:0,
                 rel:0,
                 playsinline:1,
-                mute:1
+                mute:1,
+                disablekb:1,
+                modestbranding:1,
+                iv_load_policy:3
             },
             events:{
                 onReady:function(e){
+                    ytReady=true;
                     e.target.playVideo();
                 },
                 onStateChange:function(e){
-                    // if it ever stops, restart it
                     if(e.data===YT.PlayerState.ENDED||e.data===YT.PlayerState.PAUSED){
-                        player.playVideo();
+                        try{player.playVideo()}catch(x){}
                     }
                 }
             }
         });
     };
 
-    // Unmute on FIRST user interaction (browser requirement)
+    // Unmute on first interaction — MUST be synchronous in gesture handler
     function startMusic(){
-        if(musicStarted||!player)return;
+        if(musicStarted)return;
+        if(!player||!ytReady)return;
         musicStarted=true;
         try{
             player.unMute();
             player.setVolume(100);
             player.playVideo();
         }catch(e){}
+        removeStartListeners();
+    }
+
+    function removeStartListeners(){
         document.removeEventListener('touchstart',startMusic,true);
         document.removeEventListener('touchend',startMusic,true);
         document.removeEventListener('click',startMusic,true);
+        document.removeEventListener('pointerdown',startMusic,true);
         document.removeEventListener('keydown',startMusic,true);
     }
-    // Listen on capture phase so it fires before anything else
+
     document.addEventListener('touchstart',startMusic,true);
     document.addEventListener('touchend',startMusic,true);
     document.addEventListener('click',startMusic,true);
+    document.addEventListener('pointerdown',startMusic,true);
     document.addEventListener('keydown',startMusic,true);
 
-    // Safety net: keep trying every 2s until music is actually playing
-    var retryInt=setInterval(function(){
-        if(!player)return;
+    // Safety: keep retrying unmute on every interaction until it works
+    // Also keep player alive
+    setInterval(function(){
+        if(!player||!ytReady)return;
         try{
-            var state=player.getPlayerState();
-            if(state===YT.PlayerState.PAUSED||state===YT.PlayerState.ENDED||state===-1){
+            var st=player.getPlayerState();
+            if(st===YT.PlayerState.PAUSED||st===YT.PlayerState.ENDED||st===-1||st===5){
                 player.playVideo();
             }
-            if(musicStarted){
+            if(musicStarted&&player.isMuted()){
                 player.unMute();
                 player.setVolume(100);
             }
         }catch(e){}
-    },2000);
+    },1500);
+
+    // Extra: on iOS sometimes needs re-trigger on visibility change
+    document.addEventListener('visibilitychange',function(){
+        if(!document.hidden&&player&&ytReady){
+            try{
+                player.playVideo();
+                if(musicStarted){
+                    player.unMute();
+                    player.setVolume(100);
+                }
+            }catch(e){}
+        }
+    });
 })();
 </script>
 </body>
