@@ -56,8 +56,7 @@
         .cats-subtitle{font-family:'Lora',serif;font-style:italic;font-size:clamp(14px,4vw,20px);color:var(--soft);margin-top:20px}
         .bg3{background:linear-gradient(180deg,var(--bg),#2a1525,var(--bg))}
         .reasons-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:500px;width:100%;margin:0 auto}
-        .reason-card{background:linear-gradient(145deg,rgba(255,107,138,.05),rgba(255,215,0,.02));border:1px solid rgba(255,107,138,.06);border-radius:14px;padding:18px 16px;text-align:left;display:flex;align-items:flex-start;gap:12px}
-        .reason-icon{flex-shrink:0;margin-top:2px}
+        .reason-card{background:linear-gradient(145deg,rgba(255,107,138,.05),rgba(255,215,0,.02));border:1px solid rgba(255,107,138,.06);border-radius:14px;padding:18px 16px;text-align:left}
         .reason-card h3{font-family:'Dancing Script',cursive;color:var(--pink);font-size:17px;margin-bottom:3px}
         .reason-card p{font-family:'Lora',serif;color:#c4909f;font-size:11.5px;line-height:1.6}
         .bg4{background:radial-gradient(ellipse at 30% 50%,rgba(194,24,91,.08),transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(255,215,0,.04),transparent 50%),linear-gradient(180deg,var(--bg),#1f1020,var(--bg))}
@@ -79,10 +78,6 @@
         .s6h{font-family:'Dancing Script',cursive;font-size:clamp(24px,8vw,60px);background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff9a9e,#ffd700,#ff6b8a);background-size:400% 400%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad 5s ease infinite;margin-bottom:12px}
         .s6p{font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:clamp(12px,3.5vw,18px);max-width:440px;line-height:1.8;padding:0 6px}
         .hrow{margin-top:20px;display:flex;gap:6px;justify-content:center;animation:beat 1.2s ease-in-out infinite}
-        .mu{position:fixed;bottom:max(14px,env(safe-area-inset-bottom,14px));right:12px;width:44px;height:44px;background:linear-gradient(135deg,var(--rose),var(--pink));border:none;border-radius:50%;cursor:pointer;z-index:1000;box-shadow:0 3px 12px rgba(194,24,91,.25);-webkit-appearance:none;touch-action:manipulation;display:flex;align-items:center;justify-content:center;user-select:none}
-        .mu:active{transform:scale(.88)}
-        .mu.on{animation:mp 1s ease-in-out infinite}
-        @keyframes mp{0%,100%{box-shadow:0 3px 12px rgba(194,24,91,.25)}50%{box-shadow:0 3px 18px rgba(194,24,91,.5),0 0 30px rgba(255,107,138,.12)}}
         .ytp{position:fixed;bottom:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1}
         .dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
         .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,107,138,.2);transition:all .4s;cursor:pointer}
@@ -95,12 +90,6 @@
 <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg"><defs>
     <symbol id="h" viewBox="0 0 100 100"><path d="M50,88C50,88 10,65 10,35C10,15 25,5 50,25C75,5 90,15 90,35C90,65 50,88 50,88Z" fill="currentColor"/></symbol>
     <symbol id="env" viewBox="0 0 100 80"><rect x="5" y="10" width="90" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><polyline points="5,10 50,45 95,10" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></symbol>
-    <symbol id="inf" viewBox="0 0 120 60"><path d="M60,30C60,10 80,0 95,15C110,30 95,50 60,30C25,50 10,30 25,15C40,0 60,10 60,30Z" fill="none" stroke="currentColor" stroke-width="4"/></symbol>
-    <symbol id="star" viewBox="0 0 100 100"><path d="M50,5L61,38L97,38L68,60L79,93L50,73L21,93L32,60L3,38L39,38Z" fill="currentColor"/></symbol>
-    <symbol id="spark" viewBox="0 0 100 100"><path d="M50,0C52,35 65,48 100,50C65,52 52,65 50,100C48,65 35,52 0,50C35,48 48,35 50,0Z" fill="currentColor"/></symbol>
-    <symbol id="smile" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="35" cy="40" r="5" fill="currentColor"/><circle cx="65" cy="40" r="5" fill="currentColor"/><path d="M30,60Q50,80 70,60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
-    <symbol id="emb" viewBox="0 0 100 100"><path d="M20,70Q20,30 50,25Q80,30 80,70" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="20" r="10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M5,55Q15,40 30,50" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M95,55Q85,40 70,50" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
-    <symbol id="note" viewBox="0 0 80 100"><ellipse cx="25" cy="80" rx="14" ry="10" fill="currentColor"/><line x1="39" y1="80" x2="39" y2="15" stroke="currentColor" stroke-width="4"/><path d="M39,15Q60,10 65,25Q60,20 39,25" fill="currentColor"/></symbol>
     <symbol id="sh" viewBox="0 0 20 20"><path d="M10,17C10,17 2,13 2,7C2,3 5,1 10,5C15,1 18,3 18,7C18,13 10,17 10,17Z" fill="currentColor"/></symbol>
     <symbol id="pet" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="6" ry="9" transform="rotate(15 10 10)" fill="currentColor"/></symbol>
     <symbol id="arr" viewBox="0 0 24 24"><path d="M5,12H19M13,6L19,12L13,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -125,12 +114,12 @@
 <div class="slide" id="s1"><div class="slide-in bg1">
     <div class="lbox"><div class="letter">
         <div class="lstamp"><svg width="36" height="28" style="color:var(--pink)"><use href="#env"/></svg></div>
-        <div class="dt">February 14, 2025</div>
+        <div class="dt">February 14, 2026</div>
         <h2>My dearest Ansam,</h2>
         <p>I love you very much, and you know it because I've said it so many times... But I will never get tired of saying it, especially today.</p>
         <p>You make my world so much brighter just by being in it. Thank you for being you. I adore you.</p>
         <p>Happy Valentine's Day, my love.</p>
-        <div class="sig">forever yours <svg width="18" height="18" style="color:var(--rose)"><use href="#h"/></svg></div>
+        <div class="sig">forever yours — Artem <svg width="18" height="18" style="color:var(--rose)"><use href="#h"/></svg></div>
         <div class="seal"><svg width="22" height="22" style="color:#fce4ec"><use href="#h"/></svg></div>
     </div></div>
     <div class="nav-btns">
@@ -160,19 +149,15 @@
     <h2 class="stitle">why i love you</h2>
     <div class="reasons-grid">
         <div class="reason-card">
-            <div class="reason-icon"><svg width="24" height="24" style="color:var(--gold)"><use href="#star"/></svg></div>
             <div><h3>Your loving support</h3><p>Only you know how to support me in a way that takes me from "I hate the world" straight to "I want you right now."</p></div>
         </div>
         <div class="reason-card">
-            <div class="reason-icon"><svg width="24" height="24" style="color:var(--pink)"><use href="#smile"/></svg></div>
             <div><h3>the way you make me feel</h3><p>safe. warm. home. no one has ever made me feel the way you do. not even close. With you, I can be completely open — I'd tell you everything</p></div>
         </div>
         <div class="reason-card">
-            <div class="reason-icon"><svg width="24" height="24" style="color:#ffb7c5"><use href="#emb"/></svg></div>
             <div><h3>Your cuteness</h3><p>You do everything in the cutest way possible. Texting? Cute. Flirting? Cute. Playing? Cute. It's so overwhelmingly cute it makes my head spin</p></div>
         </div>
         <div class="reason-card">
-            <div class="reason-icon"><svg width="24" height="24" style="color:var(--gold)"><use href="#spark"/></svg></div>
             <div><h3>simply everything</h3><p>Your support, your presence, the way you communicate, your quirks, your passions, the cute nicknames you call me, your little frustrations with me, your jealousy — ABSOLUTELY EVERYTHING. I love every single part of you.</p></div>
         </div>
     </div>
@@ -225,7 +210,7 @@
         </svg>
     </div>
     <h2 class="s6h">i love you, Ansam</h2>
-    <p class="s6p">you are the best thing that ever happened to me. today, tomorrow, and every day after — I belong completely to you. I swear, I'll never abandon you</p>
+    <p class="s6p">you are the best thing that ever happened to me. today, tomorrow, and every day after — I belong completely to you</p>
     <div class="hrow">
         <svg width="24" height="24" style="color:#ff6b8a"><use href="#h"/></svg>
         <svg width="24" height="24" style="color:#ff9eb5"><use href="#h"/></svg>
@@ -238,7 +223,6 @@
     </div>
 </div></div>
 
-<button class="mu" id="mu"><svg width="20" height="20" style="color:#fff"><use href="#note"/></svg></button>
 <div id="yt" class="ytp"></div>
 
 <script>
@@ -304,7 +288,7 @@
     // boom
     function boom(x,y){var box=document.getElementById('boom'),n=mob?12:24;for(var j=0;j<n;j++){var el=document.createElement('div');var c=colors[Math.random()*colors.length|0],sz=10+Math.random()*16;el.innerHTML='<svg width="'+sz+'" height="'+sz+'" style="color:'+c+'"><use href="#h"/></svg>';el.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;pointer-events:none;z-index:9999;transition:all 1s cubic-bezier(.25,.46,.45,.94);opacity:1;';box.appendChild(el);(function(e,idx){requestAnimationFrame(function(){var a=(Math.PI*2*idx)/n,d=40+Math.random()*(mob?110:200);e.style.transform='translate('+Math.cos(a)*d+'px,'+Math.sin(a)*d+'px) rotate('+Math.random()*360+'deg)';e.style.opacity='0'});setTimeout(function(){e.remove()},1000)})(el,j)}}
 
-    // valentine btn — FIXED: capture nextPair BEFORE ci++
+    // valentine btn
     var vbtn=document.getElementById('vbtn');
     var reply=document.getElementById('reply');
     var ci=0;
@@ -328,12 +312,12 @@
         boom(r.left+r.width/2,r.top+r.height/2);
 
         var pair=pairs[ci%pairs.length];
-        var nextPair=pairs[(ci+1)%pairs.length]; // capture BEFORE ci++
+        var nextPair=pairs[(ci+1)%pairs.length];
 
         reply.style.opacity='0';
         var self=this;
 
-        ci++; // now safe to increment
+        ci++;
 
         setTimeout(function(){
             reply.textContent=pair.reply;
@@ -348,10 +332,8 @@
     var lc=999999;
     setInterval(function(){lc+=(Math.random()*10|0)+1;document.getElementById('cnt').textContent=lc.toLocaleString()},100);
 
-    // ===== MUSIC: YouTube IFrame API =====
-    var muBtn=document.getElementById('mu');
+    // ===== MUSIC: YouTube IFrame API (always playing, no control button) =====
     var player=null;
-    var mOn=false;
     var unmuted=false;
 
     var tag=document.createElement('script');
@@ -376,14 +358,17 @@
             events:{
                 onReady:function(e){
                     e.target.playVideo();
-                    muBtn.classList.add('on');
-                    mOn=true;
+                },
+                onStateChange:function(e){
+                    if(e.data===YT.PlayerState.ENDED){
+                        player.playVideo();
+                    }
                 }
             }
         });
     };
 
-    function unmute(){
+    function doUnmute(){
         if(unmuted||!player)return;
         unmuted=true;
         try{
@@ -391,30 +376,11 @@
             player.setVolume(100);
             player.playVideo();
         }catch(e){}
-        document.removeEventListener('touchstart',unmute);
-        document.removeEventListener('click',unmute);
+        document.removeEventListener('touchstart',doUnmute);
+        document.removeEventListener('click',doUnmute);
     }
-    document.addEventListener('touchstart',unmute,{passive:true});
-    document.addEventListener('click',unmute);
-
-    muBtn.addEventListener('click',function(e){
-        e.stopPropagation();
-        if(!player)return;
-        try{
-            if(mOn){
-                player.pauseVideo();
-                mOn=false;
-                muBtn.classList.remove('on');
-            }else{
-                player.unMute();
-                player.setVolume(100);
-                player.playVideo();
-                mOn=true;
-                muBtn.classList.add('on');
-                unmuted=true;
-            }
-        }catch(e){}
-    });
+    document.addEventListener('touchstart',doUnmute,{passive:true});
+    document.addEventListener('click',doUnmute);
 })();
 </script>
 </body>
