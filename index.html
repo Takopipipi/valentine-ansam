@@ -78,7 +78,6 @@
         .s6h{font-family:'Dancing Script',cursive;font-size:clamp(24px,8vw,60px);background:linear-gradient(135deg,#ff6b8a,#ffd700,#ff9a9e,#ffd700,#ff6b8a);background-size:400% 400%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad 5s ease infinite;margin-bottom:12px}
         .s6p{font-family:'Lora',serif;font-style:italic;color:var(--soft);font-size:clamp(12px,3.5vw,18px);max-width:440px;line-height:1.8;padding:0 6px}
         .hrow{margin-top:20px;display:flex;gap:6px;justify-content:center;animation:beat 1.2s ease-in-out infinite}
-        .yt-wrap{position:fixed;left:-300px;top:-300px;width:280px;height:158px;pointer-events:none;z-index:-1;overflow:hidden}
         .dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
         .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,107,138,.2);transition:all .4s;cursor:pointer}
         .dot.on{background:var(--pink);box-shadow:0 0 8px rgba(255,107,138,.4);height:18px;border-radius:3px}
@@ -100,6 +99,17 @@
 <canvas id="cv"></canvas>
 <div class="boom" id="boom"></div>
 <div class="dots" id="dots"></div>
+
+<!--
+    ██ МУЗЫКА ██
+    Загрузи MP3 файл на хостинг (туда же где картинки — radikal и т.д.)
+    и замени ссылку ниже на свою.
+    Скачать аудио с YouTube можно тут: https://y2mate.com или https://ssyoutube.com
+    YouTube ID твоего трека: YxpKjQBKniA
+-->
+<audio id="bgmusic" loop preload="auto">
+    <source src="ВСТАВЬ_ССЫЛКУ_НА_MP3_СЮДА" type="audio/mpeg">
+</audio>
 
 <!-- S0 HERO -->
 <div class="slide active" id="s0"><div class="slide-in bg0">
@@ -223,12 +233,8 @@
     </div>
 </div></div>
 
-<!-- YouTube player: real size but off-screen so mobile doesn't throttle it -->
-<div class="yt-wrap"><div id="yt"></div></div>
-
 <script>
 (function(){
-    var YT_ID='YxpKjQBKniA';
     var mob=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     var slides=document.querySelectorAll('.slide');
     var total=slides.length;
@@ -333,100 +339,44 @@
     var lc=999999;
     setInterval(function(){lc+=(Math.random()*10|0)+1;document.getElementById('cnt').textContent=lc.toLocaleString()},100);
 
-    // ===== MUSIC =====
-    var player=null;
+    // ===== MUSIC — <audio> element, works on all devices =====
+    var audio=document.getElementById('bgmusic');
     var musicStarted=false;
-    var ytReady=false;
 
-    var tag=document.createElement('script');
-    tag.src='https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady=function(){
-        player=new YT.Player('yt',{
-            width:'280',
-            height:'158',
-            videoId:YT_ID,
-            playerVars:{
-                autoplay:1,
-                loop:1,
-                playlist:YT_ID,
-                controls:0,
-                showinfo:0,
-                rel:0,
-                playsinline:1,
-                mute:1,
-                disablekb:1,
-                modestbranding:1,
-                iv_load_policy:3
-            },
-            events:{
-                onReady:function(e){
-                    ytReady=true;
-                    e.target.playVideo();
-                },
-                onStateChange:function(e){
-                    if(e.data===YT.PlayerState.ENDED||e.data===YT.PlayerState.PAUSED){
-                        try{player.playVideo()}catch(x){}
-                    }
-                }
-            }
-        });
-    };
-
-    // Unmute on first interaction — MUST be synchronous in gesture handler
     function startMusic(){
         if(musicStarted)return;
-        if(!player||!ytReady)return;
-        musicStarted=true;
-        try{
-            player.unMute();
-            player.setVolume(100);
-            player.playVideo();
-        }catch(e){}
-        removeStartListeners();
+        var p=audio.play();
+        if(p&&p.then){
+            p.then(function(){
+                musicStarted=true;
+                removeML();
+            }).catch(function(){
+                // not allowed yet, will retry on next interaction
+            });
+        }else{
+            musicStarted=true;
+            removeML();
+        }
     }
 
-    function removeStartListeners(){
-        document.removeEventListener('touchstart',startMusic,true);
-        document.removeEventListener('touchend',startMusic,true);
-        document.removeEventListener('click',startMusic,true);
-        document.removeEventListener('pointerdown',startMusic,true);
-        document.removeEventListener('keydown',startMusic,true);
+    var evts=['touchstart','touchend','click','pointerdown','keydown'];
+    evts.forEach(function(e){document.addEventListener(e,startMusic,true)});
+
+    function removeML(){
+        evts.forEach(function(e){document.removeEventListener(e,startMusic,true)});
     }
 
-    document.addEventListener('touchstart',startMusic,true);
-    document.addEventListener('touchend',startMusic,true);
-    document.addEventListener('click',startMusic,true);
-    document.addEventListener('pointerdown',startMusic,true);
-    document.addEventListener('keydown',startMusic,true);
+    // if somehow paused, restart
+    audio.addEventListener('pause',function(){
+        if(musicStarted){
+            try{audio.play()}catch(e){}
+        }
+    });
 
-    // Safety: keep retrying unmute on every interaction until it works
-    // Also keep player alive
-    setInterval(function(){
-        if(!player||!ytReady)return;
-        try{
-            var st=player.getPlayerState();
-            if(st===YT.PlayerState.PAUSED||st===YT.PlayerState.ENDED||st===-1||st===5){
-                player.playVideo();
-            }
-            if(musicStarted&&player.isMuted()){
-                player.unMute();
-                player.setVolume(100);
-            }
-        }catch(e){}
-    },1500);
-
-    // Extra: on iOS sometimes needs re-trigger on visibility change
+    // restart after tab switch
     document.addEventListener('visibilitychange',function(){
-        if(!document.hidden&&player&&ytReady){
-            try{
-                player.playVideo();
-                if(musicStarted){
-                    player.unMute();
-                    player.setVolume(100);
-                }
-            }catch(e){}
+        if(!document.hidden&&musicStarted){
+            try{audio.play()}catch(e){}
         }
     });
 })();
